@@ -4,14 +4,14 @@ This project contains a simple example implementation for a simple `question-ans
 
 ## 1. Objective
 
-The objective is to implement that elementary `question-answering pipeline` example by showing how to consume existing REST APIs and create a REST API with [`fastAPI`](https://github.com/tiangolo/fastapi) and `Python` because [`Python`](https://www.python.org) is well known in the AI world.
+The objective is to implement an elementary `question-answering pipeline` example by showing how to consume existing REST APIs and create a REST API with [`fastAPI`](https://github.com/tiangolo/fastapi) and `Python` because `Python` is well-known in the AI world.
 
 >Note: An excellent and detailed example implementation for a `question-answering pipeline` implementation in the [`question-answering project`](https://github.com/nheidloff/question-answering). That project contains many more details and integrations; the `question-answering pipeline` is implemented in Java.
 The project also provides an example implementation for an experiment execution for the question-answering pipeline called `experiment-runner` implemented in Python. [Niklas Heidloff](https://heidloff.net) has written many awesome blog posts about AI and this [`question-answering project`](https://github.com/nheidloff/question-answering). I recommend briefly looking at the related blog post to this project.
 
 ## 2. Simplified Architecture
 
-The `simple-qa-pipeline` creates an answer to a question using a [Large Language Model]() inside [Watsonx with the Prompt lab](https://dataplatform.cloud.ibm.com/docs/content/wsj/getting-started/welcome-main.html?context=wx&audience=wdp) and it searches for documents with Watson Discovery.
+The `simple-qa-pipeline` creates an answer to a question using a [Large Language Model]() inside [Watsonx with the Prompt lab](https://dataplatform.cloud.ibm.com/docs/content/wsj/getting-started/welcome-main.html?context=wx&audience=wdp) and it searches for documents with Watson Discovery to provide the context.
 
 ![](/images/simple-pipeline-pipeline.drawio.png)
 
