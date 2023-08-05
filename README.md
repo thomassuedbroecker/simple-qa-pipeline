@@ -1,6 +1,6 @@
 # Simple `question-answering pipeline` using inside search and prompt with a Large Langauge Model.
 
-This project contains a simple example implementation for a simple `question-answering pipeline` using `inside-search` (`IBM Cloud Watson Discovery`) and `prompt` (`IBM Watsonx` with `prompt-lab`).
+This project contains a simple example implementation for a simple `question-answering pipeline` using an `inside-search` (`IBM Cloud Watson Discovery`) and a `prompt` (`IBM Watsonx` with `prompt-lab`) to create an answer.
 
 ## 1. Objective
 
