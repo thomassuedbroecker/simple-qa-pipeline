@@ -1,0 +1,24 @@
+version: "2.15.1"
+services:
+  question-answering:
+    build: 
+      context: ${QA_SERVICE_DOCKER_CONTEXT}
+      dockerfile: ${QA_SERVICE_DOCKER_CONTEXT}/docker/Dockerfile
+    image: simple-qa-pipeline:v1.0.0
+    container_name: simple-qa-pipeline
+    ports:
+      - 8081:8081
+    environment:
+      - DISCOVERY_API_KEY=${DISCOVERY_API_KEY}
+      - DISCOVERY_URL=${DISCOVERY_URL}
+      - DISCOVERY_COLLECTION_ID=${DISCOVERY_COLLECTION_ID}
+      - DISCOVERY_PROJECT=${DISCOVERY_PROJECT}
+      - DISCOVERY_INSTANCE=${DISCOVERY_INSTANCE}
+      - WATSONX_URL=${WATSONX_URL}
+      - WATSONX_LLM_NAME=${WATSONX_LLM_NAME}
+      - WATSONX_PROMPT=${WATSONX_PROMPT}
+      - WATSONX_PROJECT_ID=${WATSONX_PROJECT_ID}
+      - WATSONX_VERSION=${WATSONX_VERSION}
+      - IBMCLOUD_APIKEY=${IBMCLOUD_APIKEY}
+      - APP_USER=${APP_USER}
+      - APP_APIKEY=${APP_APIKEY}

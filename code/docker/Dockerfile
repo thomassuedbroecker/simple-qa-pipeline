@@ -23,6 +23,8 @@ COPY /../modules/load_env.py /
 COPY /../modules/requests_discovery.py /
 COPY /../modules/requests_ibmcloud_token.py /
 COPY /../modules/requests_watsonx.py /
+COPY /../docker/docker_entrypoint.sh /
+COPY /../docker/generate_env-config.sh /
 
 WORKDIR /app
 EXPOSE 8081
