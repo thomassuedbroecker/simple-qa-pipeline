@@ -163,3 +163,8 @@ cython_debug/
 simple-pipeline-env-3.11
 .env
 .DS_Store
+
+deployment-log/*
+!deployment-log/info.md
+!deployment-log/last/info.md
+!deployment-log/all/info.md
