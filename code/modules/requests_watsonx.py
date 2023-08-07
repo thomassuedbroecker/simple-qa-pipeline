@@ -53,7 +53,7 @@ def watsonx_simple_prompt(text, question):
             input_txt = prompt.replace(prompt_context_replace_template,documents_txt)
             data_input = input_txt.replace(prompt_question_replace_template,question)
         
-            #print(f"***LOG: - Prompt input: {data_input}")
+            print(f"***LOG: - Prompt input: \n{data_input}\n\n")
         
             # 6. Create payload
             json_data = {
@@ -76,7 +76,7 @@ def watsonx_simple_prompt(text, question):
                 json=json_data
             )
 
-            print(f"Response: {response}")
+            print(f"***LOG: Response: \n{response}\n\n")
                 
             # 7. Verify result and extract answer from the return vaule
             if (response.status_code == 200):
@@ -95,6 +95,7 @@ def watsonx_simple_prompt(text, question):
 
 def watsonx_prompt(documents, question):
     watsonx_env, verification = load_watson_x_env()
+    data={}
     
     prompt_context_replace_template="<<CONTEXT>>"
     prompt_question_replace_template="<<QUESTION>>"
@@ -124,6 +125,7 @@ def watsonx_prompt(documents, question):
 
         # 2. Get access token
         token, verification = get_token()
+ 
         print(f"***LOG: verification \n{verification}\n\n")
         print(f"***LOG: verification \n{token}\n\n")
 
@@ -176,6 +178,8 @@ def watsonx_prompt(documents, question):
                 params=params,
                 json=json_data
               )
+
+              print(f"***LOG: Response: \n{response}\n\n")
                 
               # 8. Verify result and extract answer from the return value
               if (response.status_code == 200):
@@ -183,12 +187,14 @@ def watsonx_prompt(documents, question):
                     results = data_all["results"]
                     data = results[0]["generated_text"]
                     verification = True
+                    return {"result": data} , {"status":verification} 
               else:
                     verification = False
                     data="WATSONX DOESN'T PROVIDE AN ANSWER"
+                    return {"result": data} , {"status":verification}             
     else:
         verification = False
-        data="no access token available"
+        data = "no access token available"
 
     return {"result": data} , {"status":verification} 
 
