@@ -96,7 +96,7 @@ function build_and_push_container () {
     # 3. Build container image
     echo "****** BUILD *********"
     cd "$HOME_PATH"/../../service
-    docker build -f "$HOME_PATH"/../../service/src/main/docker/"$QA_DOCKERFILE_NAME" -t "$CODEENGINE_APP_IMAGE_URL" .
+    docker build -f "$HOME_PATH"/../../code/docker/"$QA_DOCKERFILE_NAME" -t "$CODEENGINE_APP_IMAGE_URL" .
     cd "$HOME_PATH"
     
     # 4. Login to  IBM Cloud Container Registry
