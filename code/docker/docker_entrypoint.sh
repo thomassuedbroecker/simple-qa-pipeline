@@ -13,5 +13,6 @@ CURRENT_USER=$(whoami)
 echo "*********************"
 echo "** Start Python server"
 echo "*********************"
+echo "Home: $(pwd)"
 ls -a
 python simple-qa-pipeline.py

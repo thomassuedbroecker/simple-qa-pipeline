@@ -54,7 +54,7 @@ def discovery_query(query_text):
         
         if (response.status_code == 200):
             data_all=response.json()
-            #print(f"***LOG: Discovery data: {data_all}")
+            print(f"***LOG: Discovery data: {data_all}")
             data = data_all["results"]
             for item in data_all["results"]:
                 text=item["text"]
@@ -69,9 +69,9 @@ def discovery_query(query_text):
             verification = True
         else:
             verification = False
-            data=response.json
+            data = [{"status_code": response.status_code }]
     else:
         verification = False
         data = [{"data":"discovery is not configured"}]
 
-    return {"result": data} , {"status":verification} 
+    return {"result": data} , {"status": verification} 

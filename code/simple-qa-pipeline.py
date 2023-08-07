@@ -6,7 +6,7 @@ from starlette.status import HTTP_401_UNAUTHORIZED
 from modules.load_env import load_watson_discovery_env, load_apikey_env, load_watson_x_env
 from modules.requests_discovery import discovery_query
 from modules.requests_watsonx import watsonx_prompt, watsonx_simple_prompt
-from modules.requests_ibmcloud_token import get_token
+from modules.requests_ibmcloud_token import get_token, load_ibmcloud_env
 from modules.apis_payload import Watsonx_simple_question, Discovery_question, Pipeline_question
 
 ##################################
@@ -26,7 +26,7 @@ def authenticate(credentials: HTTPBasicCredentials = Depends(security)):
 ##################################
 # Create APIs
 app = FastAPI(dependencies=[Depends(authenticate)])
-app.debug = True
+#app.debug = True
 
 ##################################
 # Endpoints
@@ -49,6 +49,12 @@ def get_discovery_config():
     config, validation = load_watson_discovery_env()
     return {"discovery_config":config, "validation":validation }
 
+@app.get("/get_ibmcloud_config")
+def get_ibmcloud_config():
+    config, validation = load_ibmcloud_env()
+    return {"ibmcloud_config":config, "validation":validation }
+
+
 @app.post("/run_discovery_query/")
 async def run_a_discovery_query(discovery_question:Discovery_question):
     data, validation = discovery_query(discovery_question.question)
@@ -70,9 +76,15 @@ async def get_a_pipeline_discovery_watsonx_anwser(pipeline_question: Pipeline_qu
 
     # 1. Search for context documents based on question
     context_documents, validation = discovery_query(pipeline_question.question)
+    print(f"***LOG: Contect documents {context_documents}")
+    print(f"***LOG: Validation {validation}")
+    
+    check = validation["status"]
+    if ( check == False ):        
+        return {"answer": "ERROR IN PIPELINE", "context_documents":context_documents}
 
     # 2. Create answer based on context documents
-    answer = watsonx_prompt(context_documents,pipeline_question.question)
+    answer = watsonx_prompt(context_documents, pipeline_question.question)
 
     return {"answer": answer, "context_documents":context_documents}
 

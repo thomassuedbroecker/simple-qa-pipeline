@@ -53,7 +53,7 @@ def watsonx_simple_prompt(text, question):
             input_txt = prompt.replace(prompt_context_replace_template,documents_txt)
             data_input = input_txt.replace(prompt_question_replace_template,question)
         
-            print(f"***LOG: - Prompt input: {data_input}")
+            #print(f"***LOG: - Prompt input: {data_input}")
         
             # 6. Create payload
             json_data = {
@@ -76,7 +76,7 @@ def watsonx_simple_prompt(text, question):
                 json=json_data
             )
 
-            #print(f"Response: {response}")
+            print(f"Response: {response}")
                 
             # 7. Verify result and extract answer from the return vaule
             if (response.status_code == 200):
@@ -95,10 +95,16 @@ def watsonx_simple_prompt(text, question):
 
 def watsonx_prompt(documents, question):
     watsonx_env, verification = load_watson_x_env()
+    
     prompt_context_replace_template="<<CONTEXT>>"
     prompt_question_replace_template="<<QUESTION>>"
+    
     input_txt=""
     documents_txt=""
+
+    info=documents["result"]
+
+    print(f"***LOG: documents\n{info}\n\n")
     
     i = 0
     for item in documents["result"]:
@@ -106,8 +112,11 @@ def watsonx_prompt(documents, question):
                 text = text_array[0]
                 documents_txt = documents_txt + " \n" +  text + " \n"
                 i = i + 1
+    
+    print(f"***LOG: documents_txt \n{documents_txt}\n\n")
+    print(f"***LOG: verification \n{verification}\n\n")
 
-    if ( verification["status"] == True):
+    if ( verification == True):
         
         # 1. Load environment variables
         url = watsonx_env["WATSONX_URL"]
@@ -115,7 +124,11 @@ def watsonx_prompt(documents, question):
 
         # 2. Get access token
         token, verification = get_token()
+        print(f"***LOG: verification \n{verification}\n\n")
+        print(f"***LOG: verification \n{token}\n\n")
+
         if ( verification == True):
+              
               apikey = "Bearer " + token["result"]
               model_id = watsonx_env["WATSONX_LLM_NAME"]
               min_tokens = watsonx_env["WATSONX_MIN_NEW_TOKENS"]
@@ -134,6 +147,8 @@ def watsonx_prompt(documents, question):
               # 4. Build the prompt with documents
               input_txt = prompt.replace(prompt_context_replace_template,documents_txt)
               data_input = input_txt.replace(prompt_question_replace_template,question)
+
+              print(f"***LOG: Datadata_input\n{data_input}\n\n")
 
               # 5. Build the params
               params = {
@@ -170,7 +185,7 @@ def watsonx_prompt(documents, question):
                     verification = True
               else:
                     verification = False
-                    data=response.json()
+                    data="WATSONX DOESN'T PROVIDE AN ANSWER"
     else:
         verification = False
         data="no access token available"
