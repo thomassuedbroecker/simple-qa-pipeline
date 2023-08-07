@@ -16,12 +16,14 @@ WORKDIR /app
 # Create modeles folder
 RUN mkdir modules
 
-COPY ./../simple-qa-pipeline.py /app
-COPY ./../modules/apis_payload.py.py /app/modules
-COPY ./../modules/load_env.py /app/modules
-COPY ./../modules/requests_discovery.py /app/modules
-COPY ./../modules/requests_ibmcloud_token.py /app/modules
-COPY ./../modules/requests_ibmcloud_token.py /app/modules
+WORKDIR /app
+COPY /../simple-qa-pipeline.py /
+COPY /../modules/apis_payload.py /
+COPY /../modules/load_env.py /
+COPY /../modules/requests_discovery.py /
+COPY /../modules/requests_ibmcloud_token.py /
+COPY /../modules/requests_watsonx.py /
 
+WORKDIR /app
 EXPOSE 8081
 CMD ["/bin/sh","docker_entrypoint.sh"]

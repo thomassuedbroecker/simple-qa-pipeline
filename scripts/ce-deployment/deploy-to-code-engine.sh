@@ -95,7 +95,7 @@ function build_and_push_container () {
 
     # 3. Build container image
     echo "****** BUILD *********"
-    cd "$HOME_PATH"/../../service
+    cd "$HOME_PATH"/../../code
     docker build -f "$HOME_PATH"/../../code/docker/"$QA_DOCKERFILE_NAME" -t "$CODEENGINE_APP_IMAGE_URL" .
     cd "$HOME_PATH"
     
@@ -198,8 +198,10 @@ function log_deployment_configuration_all(){
     sed '/^#/d;s/\IBM_CLOUD_API_KEY=.*/IBM_CLOUD_API_KEY=/' $HOME_PATH/../.env > $HOME_PATH/../../deployment-log/all/$FOLDERNAME/ibm-cloud.env
     # service
     sed '/^#/d;s/\USER_APIKEY=.*/USER_APIKEY=/' $HOME_PATH/../../code/.env  > $HOME_PATH/../../deployment-log/all/$FOLDERNAME/tmp1-service.env
-    sed '/^#/d;s/\BM_CLOUD_API_KEY=.*/BM_CLOUD_API_KEY=/' $HOME_PATH/../../deployment-log/all/$FOLDERNAME/tmp1-service.env  > $HOME_PATH/../../deployment-log/all/$FOLDERNAME/service.env
+    sed '/^#/d;s/\DISCOVERY_API_KEY=.*/DISCOVERY_API_KEY=/' $HOME_PATH/../../deployment-log/all/$FOLDERNAME/tmp1-service.env  > $HOME_PATH/../../deployment-log/all/$FOLDERNAME/tmp2-service.env
+    sed '/^#/d;s/\BM_CLOUD_API_KEY=.*/BM_CLOUD_API_KEY=/' $HOME_PATH/../../deployment-log/all/$FOLDERNAME/tmp2-service.env  > $HOME_PATH/../../deployment-log/all/$FOLDERNAME/service.env
     rm $HOME_PATH/../../deployment-log/all/$FOLDERNAME/tmp1-service.env
+    rm $HOME_PATH/../../deployment-log/all/$FOLDERNAME/tmp2-service.env
 
     # create new files
     REPO_URL=$(git config --get remote.origin.url)
@@ -217,9 +219,11 @@ function log_deployment_configuration_last(){
     
     # remove all comments of the envirement configuration and save in all
     # service
-    sed 's/\USER_APIKEY=.*/USER_APIKEY=/' $HOME_PATH/../../code/.env  > $HOME_PATH/../../deployment-log/last/tmp1-service.env
-    sed '/^#/d;s/\IBMCLOUD_APIKEY=.*/IBMCLOUD_APIKEY=/' $HOME_PATH/../../deployment-log/last/tmp1-service.env  > $HOME_PATH/../../deployment-log/last/service.env
+    sed 's/\APP_APIKEY=.*/APP_APIKEY=/' $HOME_PATH/../../code/.env  > $HOME_PATH/../../deployment-log/last/tmp1-service.env
+    sed 's/\DISCOVERY_API_KEY=.*/DISCOVERY_API_KEY=/' $HOME_PATH/../../deployment-log/last/tmp1-service.env  > $HOME_PATH/../../deployment-log/last/tmp2-service.env
+    sed '/^#/d;s/\IBMCLOUD_APIKEY=.*/IBMCLOUD_APIKEY=/' $HOME_PATH/../../deployment-log/last/tmp2-service.env  > $HOME_PATH/../../deployment-log/last/service.env
     rm $HOME_PATH/../../deployment-log/last/tmp1-service.env
+    rm $HOME_PATH/../../deployment-log/last/tmp2-service.env
 
     # create new files
     REPO_URL=$(git config --get remote.origin.url)
