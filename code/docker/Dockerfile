@@ -16,7 +16,6 @@ WORKDIR /app
 # Create modeles folder
 RUN mkdir modules
 
-WORKDIR /app
 COPY /../simple-qa-pipeline.py /
 COPY /../modules/apis_payload.py /
 COPY /../modules/load_env.py /
@@ -26,6 +25,5 @@ COPY /../modules/requests_watsonx.py /
 COPY /../docker/docker_entrypoint.sh /
 COPY /../docker/generate_env-config.sh /
 
-WORKDIR /app
 EXPOSE 8081
 CMD ["/bin/sh","docker_entrypoint.sh"]
