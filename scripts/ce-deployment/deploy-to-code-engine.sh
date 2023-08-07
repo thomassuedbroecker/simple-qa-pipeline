@@ -194,21 +194,12 @@ function log_deployment_configuration_all(){
     mkdir $HOME_PATH/../../deployment-log/all/$FOLDERNAME
     
     # remove all comments of the envirement configuration and save in all
-    # experiment-runner
+    # ibm-cloud
     sed '/^#/d;s/\IBM_CLOUD_API_KEY=.*/IBM_CLOUD_API_KEY=/' $HOME_PATH/../.env > $HOME_PATH/../../deployment-log/all/$FOLDERNAME/ibm-cloud.env
-    sed '/^#/d;s/\password=.*/password=/' $HOME_PATH/../../metrics/experiment-runner/.env > $HOME_PATH/../../deployment-log/all/$FOLDERNAME/experiment-runner.env
     # service
-    sed 's/\QA_API_KEY=.*/QA_API_KEY=/' $HOME_PATH/../../service/.env  > $HOME_PATH/../../deployment-log/all/$FOLDERNAME/tmp1-service.env
-    sed 's/\MAAS_API_KEY=.*/MAAS_API_KEY=/' $HOME_PATH/../../deployment-log/all/$FOLDERNAME/tmp1-service.env  > $HOME_PATH/../../deployment-log/all/$FOLDERNAME/tmp2-service.env
-    sed 's/\ELASTIC_SEARCH_PASSWORD=.*/ELASTIC_SEARCH_PASSWORD=/' $HOME_PATH/../../deployment-log/all/$FOLDERNAME/tmp2-service.env  > $HOME_PATH/../../deployment-log/all/$FOLDERNAME/tmp3-service.env
-    sed 's/\RERANKER_API_KEY=.*/RERANKER_API_KEY=/'  $HOME_PATH/../../deployment-log/all/$FOLDERNAME/tmp3-service.env  > $HOME_PATH/../../deployment-log/all/$FOLDERNAME/tmp4-service.env
-    sed '/^#/d;s/\DISCOVERY_API_KEY=.*/DISCOVERY_API_KEY=/' $HOME_PATH/../../deployment-log/all/$FOLDERNAME/tmp4-service.env > $HOME_PATH/../../deployment-log/all/$FOLDERNAME/tmp5-service.env
-    sed '/^#/d;s/\PROXY_API_KEY=.*/PROXY_API_KEY=/' $HOME_PATH/../../deployment-log/all/$FOLDERNAME/tmp5-service.env > $HOME_PATH/../../deployment-log/all/$FOLDERNAME/service.env
+    sed '/^#/d;s/\USER_APIKEY=.*/USER_APIKEY=/' $HOME_PATH/../../code/.env  > $HOME_PATH/../../deployment-log/all/$FOLDERNAME/tmp1-service.env
+    sed '/^#/d;s/\BM_CLOUD_API_KEY=.*/BM_CLOUD_API_KEY=/' $HOME_PATH/../../deployment-log/all/$FOLDERNAME/tmp1-service.env  > $HOME_PATH/../../deployment-log/all/$FOLDERNAME/service.env
     rm $HOME_PATH/../../deployment-log/all/$FOLDERNAME/tmp1-service.env
-    rm $HOME_PATH/../../deployment-log/all/$FOLDERNAME/tmp2-service.env
-    rm $HOME_PATH/../../deployment-log/all/$FOLDERNAME/tmp3-service.env
-    rm $HOME_PATH/../../deployment-log/all/$FOLDERNAME/tmp4-service.env
-    rm $HOME_PATH/../../deployment-log/all/$FOLDERNAME/tmp5-service.env
 
     # create new files
     REPO_URL=$(git config --get remote.origin.url)
@@ -226,17 +217,9 @@ function log_deployment_configuration_last(){
     
     # remove all comments of the envirement configuration and save in all
     # service
-    sed 's/\QA_API_KEY=.*/QA_API_KEY=/' $HOME_PATH/../../service/.env  > $HOME_PATH/../../deployment-log/last/tmp1-service.env
-    sed 's/\MAAS_API_KEY=.*/MAAS_API_KEY=/' $HOME_PATH/../../deployment-log/last/tmp1-service.env  > $HOME_PATH/../../deployment-log/last/tmp2-service.env
-    sed 's/\ELASTIC_SEARCH_PASSWORD=.*/ELASTIC_SEARCH_PASSWORD=/' $HOME_PATH/../../deployment-log/last/tmp2-service.env  > $HOME_PATH/../../deployment-log/last/tmp3-service.env
-    sed 's/\RERANKER_API_KEY=.*/RERANKER_API_KEY=/'  $HOME_PATH/../../deployment-log/last/tmp3-service.env  > $HOME_PATH/../../deployment-log/last/tmp4-service.env
-    sed '/^#/d;s/\DISCOVERY_API_KEY=.*/DISCOVERY_API_KEY=/' $HOME_PATH/../../deployment-log/last/tmp4-service.env > $HOME_PATH/../../deployment-log/last/tmp5-service.env
-    sed '/^#/d;s/\PROXY_API_KEY=.*/PROXY_API_KEY=/' $HOME_PATH/../../deployment-log/last/tmp5-service.env > $HOME_PATH/../../deployment-log/last/service.env
+    sed 's/\USER_APIKEY=.*/USER_APIKEY=/' $HOME_PATH/../../code/.env  > $HOME_PATH/../../deployment-log/last/tmp1-service.env
+    sed '/^#/d;s/\IBMCLOUD_APIKEY=.*/IBMCLOUD_APIKEY=/' $HOME_PATH/../../deployment-log/last/tmp1-service.env  > $HOME_PATH/../../deployment-log/last/service.env
     rm $HOME_PATH/../../deployment-log/last/tmp1-service.env
-    rm $HOME_PATH/../../deployment-log/last/tmp2-service.env
-    rm $HOME_PATH/../../deployment-log/last/tmp3-service.env
-    rm $HOME_PATH/../../deployment-log/last/tmp4-service.env
-    rm $HOME_PATH/../../deployment-log/last/tmp5-service.env
 
     # create new files
     REPO_URL=$(git config --get remote.origin.url)
