@@ -159,12 +159,14 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-# additional
-simple-pipeline-env-3.11
-.env
-.DS_Store
-
+# ce deployment
 deployment-log/*
 !deployment-log/info.md
 !deployment-log/last/info.md
 !deployment-log/all/info.md
+configmap_values.txt
+
+# additional
+simple-pipeline-env-3.11
+.env
+.DS_Store
