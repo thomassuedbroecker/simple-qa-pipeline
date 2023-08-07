@@ -13,6 +13,5 @@ CURRENT_USER=$(whoami)
 echo "*********************"
 echo "** Start Python server"
 echo "*********************"
-ls
-source .env
+ls -a
 python simple-qa-pipeline.py
