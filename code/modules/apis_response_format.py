@@ -31,9 +31,34 @@ class Run_discovery_query(BaseModel):
      context_documents: Result
      validation: Status
 
+# Example return value
+#  "context_documents": {
+#    "result": [
+#      {
+#        "text": "Text",
+#        "title": "Title",
+#        "document_url: "URL"
+#       }
+#     ]
+#  },
+#  "validation": {
+#      "status": true
+#  }
+
+
+
 class Get_simple_answer(BaseModel):
     answer: BasicResult
     validation: Status
+# Example return value
+#{
+#  "answer": {
+#    "result": "answer"
+#  },
+#  "validation": {
+#    "status": true
+#  }
+#}
 
 class Get_access_token(BaseModel):
     token: BasicResult
@@ -42,6 +67,28 @@ class Get_access_token(BaseModel):
 class Get_pipeline_answer(BaseModel):
     answer: dict
     context_documents: Result
+
+# Example return value
+#  {
+#    "answer": {
+#      "result": "Answer text"
+#    },
+#    "context_documents": {
+#      "result": [
+#        {
+#          "text": "Text",
+#          "title": "Title",
+#          "url": "URL"
+#        },
+#        {
+#            "text": "Text",
+#            "title": "Title",
+#            "url": "URL"
+#        }
+#      ]
+#    }
+#   }
+#
 
 class Health(BaseModel):
     status: str

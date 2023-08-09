@@ -143,7 +143,8 @@ There is no [`Lite plan`](https://www.ibm.com/cloud/free) available, but when yo
 5. Open view code
 ![](/images/watsonx-01.gif)
 6. [Create an IBM Cloud API key](https://www.ibm.com/docs/en/app-connect/container?topic=servers-creating-cloud-api-key)
-![]()
+
+![](/images/watsonx-03.gif))
 
 * With Watsonx sandbox project creation following services will be instantiated in your IBM Cloud Account:
 

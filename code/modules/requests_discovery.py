@@ -55,14 +55,32 @@ def discovery_query(query_text):
         if (response.status_code == 200 ):
             data_all=response.json()
             if (data_all["matching_results"]>0):
-                # print(f"***LOG:ny Discovery data: {data_all}")
+                #print(f"***LOG: Discovery data all: \n{data_all}\n\n")
                 data = data_all["results"]
                 for item in data_all["results"]:
-                    text=item["text"]
-                    title=item["title"]
-                    document_url=item["url"]
-                    new_item={"text":text,"title":title,"url":document_url}
-                    return_data.append(new_item)
+                    print(f"***LOG: Discovery item: \n{item}\n\n")
+                    
+                    if isinstance(item["text"], str):
+                        text=item["text"]
+                        title=item["title"]
+                        document_url=item["url"]
+                        new_item={"text":text,"title":title,"url":document_url}
+                        return_data.append(new_item)
+                    else:    
+                        #tmp=item["text"]
+                        #print(f"***LOG: Type {type(tmp)}")               
+                        if isinstance(item["text"], list):
+                            text=item["text"][0]
+                            title=""
+                            document_url=""
+                            new_item={"text":text,"title":title,"url":document_url}
+                            return_data.append(new_item)
+                        else:
+                            text=item["text"]
+                            title=""
+                            document_url=""
+                            new_item={"text":text,"title":title,"url":document_url}
+                            return_data.append(new_item)
                     i = i + 1
                     if (i == max_count):
                         break
