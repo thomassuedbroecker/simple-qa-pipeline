@@ -2,6 +2,8 @@
 
 This project contains a simple example implementation for a simple `question-answering pipeline` using an `inside-search` (`IBM Cloud Watson Discovery`) and a `prompt` (`IBM Watsonx` with `prompt-lab`) to create an answer.
 
+Related blog post: [IBM Watsonx and a simple question-answering pipeline using Python and fastAPI](https://wp.me/paelj4-21Y)
+
 ## 1. Objective
 
 The objective is to implement an elementary `question-answering pipeline` example by showing how to consume existing REST APIs and create a REST API with [`fastAPI`](https://github.com/tiangolo/fastapi) and `Python` because `Python` is well-known in the AI world.
