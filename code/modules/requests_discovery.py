@@ -55,7 +55,7 @@ def discovery_query(query_text):
         if (response.status_code == 200 ):
             data_all=response.json()
             if (data_all["matching_results"]>0):
-                print(f"***LOG: Discovery data: {data_all}")
+                # print(f"***LOG:ny Discovery data: {data_all}")
                 data = data_all["results"]
                 for item in data_all["results"]:
                     text=item["text"]
