@@ -22,11 +22,11 @@ RUN mkdir modules
 
 COPY /../simple-qa-pipeline.py /app
 COPY /../modules/apis_payload.py /app/modules
+COPY /../modules/apis_response_format.py /app/modules
 COPY /../modules/load_env.py /app/modules
 COPY /../modules/requests_discovery.py /app/modules
 COPY /../modules/requests_ibmcloud_token.py /app/modules
 COPY /../modules/requests_watsonx.py /app/modules
-COPY /../modules/apis_response_format.py /app/modules
 COPY /../docker/docker_entrypoint.sh /app
 COPY /../docker/generate_env-config.sh /app
 

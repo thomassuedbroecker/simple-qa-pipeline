@@ -14,13 +14,13 @@ def watsonx_simple_prompt(text, question):
 
         # 1. Load environment variables
         url = watsonx_env["WATSONX_URL"]
-        print(f"***LOG: - url: {url}")
+        # print(f"***LOG:ny - url: {url}")
 
         # 2. Get access token
         token, verification = get_token()
         apikey = "Bearer " + token["result"]
         #print(f"***LOG: - API KEY: {apikey}")
-        print(f"***LOG: - Verification: {verification}")
+        # print(f"***LOG:ny - Verification: {verification}")
 
         if ( verification["status"] == True):
             apikey = "Bearer " + token["result"]
@@ -35,7 +35,7 @@ def watsonx_simple_prompt(text, question):
             project_id = watsonx_env["WATSONX_PROJECT_ID"]
             print(f"***LOG: - Project_id: {project_id}")
             version = watsonx_env["WATSONX_VERSION"]
-            print(f"***LOG: version: {version}")
+            print(f"***LOG: - Version: {version}")
 
             # 3. Build the header with authenication       
             headers = {
@@ -53,7 +53,7 @@ def watsonx_simple_prompt(text, question):
             input_txt = prompt.replace(prompt_context_replace_template,documents_txt)
             data_input = input_txt.replace(prompt_question_replace_template,question)
         
-            print(f"***LOG: - Prompt input: \n{data_input}\n\n")
+            # print(f"***LOG:ny - Prompt input: \n{data_input}\n\n")
         
             # 6. Create payload
             json_data = {
@@ -76,7 +76,7 @@ def watsonx_simple_prompt(text, question):
                 json=json_data
             )
 
-            print(f"***LOG: Response: \n{response}\n\n")
+            # print(f"***LOG:nyny Response: \n{response}\n\n")
                 
             # 7. Verify result and extract answer from the return vaule
             if (response.status_code == 200):
@@ -104,7 +104,7 @@ def watsonx_prompt(documents, question):
     documents_txt=""
 
     info=documents["result"]
-    print(f"***LOG: watsonx_prompt documents\n{info}\n\n")
+    # print(f"***LOG: watsonx_prompt documents\n{info}\n\n")
     
     i = 0
     for item in documents["result"]:
@@ -113,20 +113,20 @@ def watsonx_prompt(documents, question):
                 documents_txt = documents_txt + " \n" +  text + " \n"
                 i = i + 1
     
-    print(f"***LOG: watsonx_prompt documents_txt \n{documents_txt}\n\n")
-    print(f"***LOG: watsonx_prompt verification \n{verification}\n\n")
+    # print(f"***LOG:ny watsonx_prompt documents_txt \n{documents_txt}\n\n")
+    # print(f"***LOG:ny watsonx_prompt verification \n{verification}\n\n")
 
     if ( verification == True):
         
         # 1. Load environment variables
         url = watsonx_env["WATSONX_URL"]
-        print(f"***LOG: - url: {url}")
+        # print(f"***LOG:ny - url: {url}")
 
         # 2. Get access token
         token, verification = get_token()
  
-        print(f"***LOG: verification \n{verification}\n\n")
-        print(f"***LOG: token \n{token}\n\n")
+        # print(f"***LOG:ny verification \n{verification}\n\n")
+        # print(f"***LOG:ny token \n{token}\n\n")
 
         if ( verification["status"] == True):
               
@@ -149,7 +149,7 @@ def watsonx_prompt(documents, question):
               input_txt = prompt.replace(prompt_context_replace_template,documents_txt)
               data_input = input_txt.replace(prompt_question_replace_template,question)
 
-              print(f"***LOG: watsonx_prompt Datadata_input\n{data_input}\n\n")
+              # print(f"***LOG:ny watsonx_prompt Datadata_input\n{data_input}\n\n")
 
               # 5. Build the params
               params = {
@@ -178,7 +178,7 @@ def watsonx_prompt(documents, question):
                 json=json_data
               )
 
-              print(f"***LOG: watsonx_prompt Answer response: \n{response}\n\n")
+              # print(f"***LOG:ny watsonx_prompt Answer response: \n{response}\n\n")
                 
               # 8. Verify result and extract answer from the return value
               if (response.status_code == 200):
