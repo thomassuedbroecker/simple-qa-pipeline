@@ -377,11 +377,13 @@ function verifyDeployment () {
     echo " Verify deployment: $CODEENGINE_APP_IMAGE_URL" 
     echo "**********************************"
     
+    APP_ENDPOINT=get_simple_answer/
+
     curl -X POST \
         -u "$APP_USER:$APP_APIKEY" \
         --header "Content-Type: application/json" \
         --data "{   \"question\": \"$CODEENGINE_VERIFY_QUESTION\",\"context\":\"$CODEENGINE_VERIFY_CONTEXT\"}" \
-        "$CODEENGINE_APP_NAME_URL/get_simple_answer" \
+        "${CODEENGINE_APP_NAME_URL}/${APP_ENDPOINT}" \
         | jq '.'
 
 }

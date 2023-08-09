@@ -14,6 +14,8 @@ RUN addgroup simple_qa_pipeline_group
 RUN useradd simple_qa_pipeline_user
 RUN adduser simple_qa_pipeline_user simple_qa_pipeline_group
 
+USER simple_qa_pipeline_user
+
 # Set directory
 WORKDIR /app
 
@@ -29,8 +31,6 @@ COPY /../modules/requests_ibmcloud_token.py /app/modules
 COPY /../modules/requests_watsonx.py /app/modules
 COPY /../docker/docker_entrypoint.sh /app
 COPY /../docker/generate_env-config.sh /app
-
-USER simple_qa_pipeline_user
 
 EXPOSE 8081
 CMD ["/bin/sh","docker_entrypoint.sh"]

@@ -39,6 +39,38 @@ cd scripts/ce-deployment
 sh deploy-to-code-engine.sh
 ```
 
+* Code Engine
+
+```sh
+QUESTION="What is your name?"
+CONTEXT="My name is Thomas."
+APP_USER="admin"
+APP_APIKEY="admin"
+CE_HOST=simple-qa-pipeline.15tawtn50zwj.us-east.codeengine.appdomain.cloud
+APP_ENDPOINT=get_simple_answer/
+curl -X POST \
+    -u "${APP_USER}:${APP_APIKEY}" \
+    --header "Content-Type: application/json" \
+    --data "{\"question\": \"${QUESTION}\",\"context\": \"${CONTEXT}\"}" \
+    "https://${CE_HOST}/${APP_ENDPOINT}" \
+    | jq '.'
+```
+
+* Local
+
+```sh
+CONTEXT="My name is Thomas."
+APP_USER="admin"
+APP_APIKEY="admin"
+CE_HOST=localhost:8081
+APP_ENDPOINT=get_simple_answer/
+curl -X POST \
+    -u "${APP_USER}:${APP_APIKEY}" \
+    --header "Content-Type: application/json" \
+    --data "{\"question\": \"${QUESTION}\",\"context\": \"${CONTEXT}\"}" \
+    "http://${CE_HOST}/${APP_ENDPOINT}"| jq '.'
+```
+
 ### 2.2. Open your `Code Engine` project in the `IBM Cloud Console`
 
 ### 2.3. Open your `configmap` defined for your Code Engine application
@@ -61,7 +93,7 @@ You can redeploy an application based on existing information, by providing foll
 ```sh
 export REUSE_COMMAND=reuse
 export COMMIT_ID=XXXXXXX
-export REPOSITORY_URL=https://github.com/nheidloff/question-answering
+export REPOSITORY_URL=https://github.com/thomassuedbroecker/simple-qa-pipeline.git
 export ENVIORNMENT_FILENAME=my-restore.env
 sh deploy-to-code-engine.sh $REUSE_COMMAND $COMMIT_ID $REPOSITORY_URL $ENVIORNMENT_FILENAME
 ```
