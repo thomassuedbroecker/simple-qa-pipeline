@@ -104,8 +104,7 @@ def watsonx_prompt(documents, question):
     documents_txt=""
 
     info=documents["result"]
-
-    print(f"***LOG: documents\n{info}\n\n")
+    print(f"***LOG: watsonx_prompt documents\n{info}\n\n")
     
     i = 0
     for item in documents["result"]:
@@ -114,8 +113,8 @@ def watsonx_prompt(documents, question):
                 documents_txt = documents_txt + " \n" +  text + " \n"
                 i = i + 1
     
-    print(f"***LOG: documents_txt \n{documents_txt}\n\n")
-    print(f"***LOG: verification \n{verification}\n\n")
+    print(f"***LOG: watsonx_prompt documents_txt \n{documents_txt}\n\n")
+    print(f"***LOG: watsonx_prompt verification \n{verification}\n\n")
 
     if ( verification == True):
         
@@ -127,9 +126,9 @@ def watsonx_prompt(documents, question):
         token, verification = get_token()
  
         print(f"***LOG: verification \n{verification}\n\n")
-        print(f"***LOG: verification \n{token}\n\n")
+        print(f"***LOG: token \n{token}\n\n")
 
-        if ( verification == True):
+        if ( verification["status"] == True):
               
               apikey = "Bearer " + token["result"]
               model_id = watsonx_env["WATSONX_LLM_NAME"]
@@ -150,7 +149,7 @@ def watsonx_prompt(documents, question):
               input_txt = prompt.replace(prompt_context_replace_template,documents_txt)
               data_input = input_txt.replace(prompt_question_replace_template,question)
 
-              print(f"***LOG: Datadata_input\n{data_input}\n\n")
+              print(f"***LOG: watsonx_prompt Datadata_input\n{data_input}\n\n")
 
               # 5. Build the params
               params = {
@@ -179,7 +178,7 @@ def watsonx_prompt(documents, question):
                 json=json_data
               )
 
-              print(f"***LOG: Response: \n{response}\n\n")
+              print(f"***LOG: watsonx_prompt Answer response: \n{response}\n\n")
                 
               # 8. Verify result and extract answer from the return value
               if (response.status_code == 200):
