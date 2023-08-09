@@ -9,6 +9,8 @@ def get_token():
     ibmcloud_apikey = ibmcloud_env["IBMCLOUD_APIKEY"]
     ibmcloud_url = ibmcloud_env["IBMCLOUD_URL"]
 
+    #print(f"***LOG:\n get_token - ibmcloud_apikey: \n{ibmcloud_apikey}\n\n")
+    
     # 2. Build endpoint
     endpoint = ibmcloud_url
 
@@ -23,6 +25,8 @@ def get_token():
     # 5. Create response
     response = requests.post( endpoint, headers=headers, data=payload)
 
+    #print(f"***LOG:\n get_token - response: \n{response}\n\n")
+
     if (response.status_code == 200):
             data_all=response.json()
             #print(f"***LOG: IBM Cloud data: {data_all}")
@@ -32,7 +36,7 @@ def get_token():
             verification = False
             data= "NO TOKEN AVAILABLE"
 
-    return {"result": data} , {"status":verification} 
+    return {"result": data} , {"status": verification} 
 
 
 

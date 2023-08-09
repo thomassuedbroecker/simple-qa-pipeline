@@ -49,7 +49,6 @@ def provide_health_status() -> Any:
 @app.get("/get_discovery_config", response_model=Get_discovery_config)
 def get_discovery_config() -> Any: 
     config, validation = load_watson_discovery_env()
-
     return {"discovery_config":config, "validation":validation }
 
 @app.get("/get_ibmcloud_config", response_model=Get_ibmcloud_config)
@@ -60,10 +59,10 @@ def get_ibmcloud_config() -> Any:
 @app.post("/run_discovery_query/", response_model=Run_discovery_query)
 async def run_a_discovery_query(discovery_question:Discovery_question) -> Any:
     data, validation = discovery_query(discovery_question.question)
-    # print(f"***LOG:ny run_discovery_query - data: \n{data}\n\n")
-    # print(f"***LOG:ny run_discovery_query - validation: \n{validation}\n\n")
+    # print(f"***LOG:\n run_discovery_query - data: \n{data}\n\n")
+    # print(f"***LOG:\n run_discovery_query - validation: \n{validation}\n\n")
     return_value = {"context_documents": data, "validation":validation }
-    # print(f"***LOG:ny run_discovery_query - return_value: \n{return_value}\n\n")
+    # print(f"***LOG:\n run_discovery_query - return_value: \n{return_value}\n\n")
     return return_value
 
 @app.post("/get_simple_answer/", response_model=Get_simple_answer)
