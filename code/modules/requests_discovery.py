@@ -52,26 +52,32 @@ def discovery_query(query_text):
         return_data=[]
         i=1
         
-        if (response.status_code == 200):
+        if (response.status_code == 200 ):
             data_all=response.json()
-            print(f"***LOG: Discovery data: {data_all}")
-            data = data_all["results"]
-            for item in data_all["results"]:
-                text=item["text"]
-                title=item["title"]
-                document_url=item["url"]
-                new_item={"text":text,"title":title,"url":document_url}
-                return_data.append(new_item)
-                i = i + 1
-                if (i == max_count):
-                    break
-            data = return_data
-            verification = True
+            if (data_all["matching_results"]>0):
+                # print(f"***LOG:ny Discovery data: {data_all}")
+                data = data_all["results"]
+                for item in data_all["results"]:
+                    text=item["text"]
+                    title=item["title"]
+                    document_url=item["url"]
+                    new_item={"text":text,"title":title,"url":document_url}
+                    return_data.append(new_item)
+                    i = i + 1
+                    if (i == max_count):
+                        break
+                data = return_data
+                verification = True
+            else:
+                verification = False
+                data=[{"Error": "no document found"}]
         else:
             verification = False
             data = [{"status_code": response.status_code }]
     else:
         verification = False
         data = [{"data":"discovery is not configured"}]
+        return_data.append(new_item)
+        data = return_data
 
     return {"result": data} , {"status": verification} 

@@ -8,6 +8,9 @@ from modules.requests_discovery import discovery_query
 from modules.requests_watsonx import watsonx_prompt, watsonx_simple_prompt
 from modules.requests_ibmcloud_token import get_token, load_ibmcloud_env
 from modules.apis_payload import Watsonx_simple_question, Discovery_question, Pipeline_question
+from modules.apis_response_format import Get_access_token, Get_discovery_config,Get_ibmcloud_config, Get_pipeline_answer, Get_simple_answer, Run_discovery_query, Health
+
+from typing import Any
 
 ##################################
 # Set basic auth as security
@@ -39,52 +42,58 @@ def root_show_configuration_status():
         status = "unconfigured"
     return{"status": status}
 
-@app.get("/health")
-def provide_health_status():
-    status = "ok"
-    return{"status": status}
+@app.get("/health", response_model=Health) 
+def provide_health_status() -> Any:
+    return { "status": "ok"}
 
-@app.get("/get_discovery_config")
-def get_discovery_config():
+@app.get("/get_discovery_config", response_model=Get_discovery_config)
+def get_discovery_config() -> Any: 
     config, validation = load_watson_discovery_env()
+
     return {"discovery_config":config, "validation":validation }
 
-@app.get("/get_ibmcloud_config")
-def get_ibmcloud_config():
+@app.get("/get_ibmcloud_config", response_model=Get_ibmcloud_config)
+def get_ibmcloud_config() -> Any:
     config, validation = load_ibmcloud_env()
     return {"ibmcloud_config":config, "validation":validation }
 
-
-@app.post("/run_discovery_query/")
-async def run_a_discovery_query(discovery_question:Discovery_question):
+@app.post("/run_discovery_query/", response_model=Run_discovery_query)
+async def run_a_discovery_query(discovery_question:Discovery_question) -> Any:
     data, validation = discovery_query(discovery_question.question)
-    return {"context_documents":data, "validation":validation }
+    # print(f"***LOG:ny run_discovery_query - data: \n{data}\n\n")
+    # print(f"***LOG:ny run_discovery_query - validation: \n{validation}\n\n")
+    return_value = {"context_documents": data, "validation":validation }
+    # print(f"***LOG:ny run_discovery_query - return_value: \n{return_value}\n\n")
+    return return_value
 
-@app.post("/get_simple_answer/")
-async def get_a_watsonx_answer(watsonx_simple_question:Watsonx_simple_question):
+@app.post("/get_simple_answer/", response_model=Get_simple_answer)
+async def get_a_watsonx_answer(watsonx_simple_question:Watsonx_simple_question) -> Any:
     answer, validation = watsonx_simple_prompt(watsonx_simple_question.context,
                                                watsonx_simple_question.question)
     return {"answer":answer, "validation":validation}
 
-@app.get("/get_access_token")
-def get_an_ibm_cloud_access_token():
+@app.get("/get_access_token", response_model=Get_access_token)
+def get_an_ibm_cloud_access_token() -> Any:
     data, validation = get_token()
     return {"token":data, "validation":validation }
 
-@app.post("/get_pipeline_answer/")
-async def get_a_pipeline_discovery_watsonx_anwser(pipeline_question: Pipeline_question):
+@app.post("/get_pipeline_answer/", response_model=Get_pipeline_answer)
+async def get_a_pipeline_discovery_watsonx_anwser(pipeline_question: Pipeline_question) -> Any:
 
     # 1. Search for context documents based on question
     context_documents, validation = discovery_query(pipeline_question.question)
-    print(f"***LOG: Contect documents {context_documents}")
-    print(f"***LOG: Validation {validation}")
+    # print(f"***LOG:ny get_pipeline_answer Contect documents \n{context_documents} \n\n")
+    # print(f"***LOG:ny get_pipeline_answer Validation \n{validation}\n\n")
     
     check = validation["status"]
     if ( check == False ):        
-        return {"answer": "ERROR IN PIPELINE", "context_documents":context_documents}
+        return {"answer": {"result":"ERROR IN PIPELINE"}, "context_documents":context_documents}
 
     # 2. Create answer based on context documents
-    answer = watsonx_prompt(context_documents, pipeline_question.question)
+    answer, validation = watsonx_prompt(context_documents, pipeline_question.question)
+
+    # print(f"***LOG:ny get_pipeline_answer answer \n{answer} \n\n")
+    # print(f"***LOG:ny get_pipeline_answer validation \n{validation}\n\n")
 
     return {"answer": answer, "context_documents":context_documents}
 
