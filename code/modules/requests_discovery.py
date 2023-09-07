@@ -88,7 +88,8 @@ def discovery_query(query_text):
                 verification = True
             else:
                 verification = False
-                data=[{"Error": "no document found"}]
+                message= "no document found and status code: " + response.status_code 
+                data=[{"error":  message }]
         else:
             verification = False
             data = [{"status_code": response.status_code }]
