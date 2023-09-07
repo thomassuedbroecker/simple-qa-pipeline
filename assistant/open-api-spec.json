@@ -1,0 +1,512 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Simple QA pipeline",
+        "summary": "Using OpenAPI v3.0.1 for integration to Watsonx Assistant",
+        "description": "This is a customization of the **OpenAPI version** in **fastAPI**",
+        "version": "3.0.1",
+        "x-logo": {
+            "url": "https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png"
+        }
+    },
+    "paths": {
+        "/": {
+            "get": {
+                "summary": "Root Show Configuration Status",
+                "operationId": "root_show_configuration_status__get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBasic": []
+                    }
+                ]
+            }
+        },
+        "/health": {
+            "get": {
+                "summary": "Provide Health Status",
+                "operationId": "provide_health_status_health_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Health"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBasic": []
+                    }
+                ]
+            }
+        },
+        "/get_discovery_config": {
+            "get": {
+                "summary": "Get Discovery Config",
+                "operationId": "get_discovery_config_get_discovery_config_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Get_discovery_config"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBasic": []
+                    }
+                ]
+            }
+        },
+        "/get_ibmcloud_config": {
+            "get": {
+                "summary": "Get Ibmcloud Config",
+                "operationId": "get_ibmcloud_config_get_ibmcloud_config_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Get_ibmcloud_config"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBasic": []
+                    }
+                ]
+            }
+        },
+        "/run_discovery_query/": {
+            "post": {
+                "summary": "Run A Discovery Query",
+                "operationId": "run_a_discovery_query_run_discovery_query__post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Discovery_question"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Run_discovery_query"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBasic": []
+                    }
+                ]
+            }
+        },
+        "/get_simple_answer/": {
+            "post": {
+                "summary": "Get A Watsonx Answer",
+                "operationId": "get_a_watsonx_answer_get_simple_answer__post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Watsonx_simple_question"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Get_simple_answer"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBasic": []
+                    }
+                ]
+            }
+        },
+        "/get_access_token": {
+            "get": {
+                "summary": "Get An Ibm Cloud Access Token",
+                "operationId": "get_an_ibm_cloud_access_token_get_access_token_get",
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Get_access_token"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBasic": []
+                    }
+                ]
+            }
+        },
+        "/get_pipeline_answer/": {
+            "post": {
+                "summary": "Get A Pipeline Discovery Watsonx Anwser",
+                "operationId": "get_a_pipeline_discovery_watsonx_anwser_get_pipeline_answer__post",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Pipeline_question"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Get_pipeline_answer"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "HTTPBasic": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "BasicResult": {
+                "properties": {
+                    "result": {
+                        "type": "string",
+                        "title": "Result"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "result"
+                ],
+                "title": "BasicResult"
+            },
+            "Discovery_question": {
+                "properties": {
+                    "question": {
+                        "type": "string",
+                        "title": "Question"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "question"
+                ],
+                "title": "Discovery_question"
+            },
+            "Get_access_token": {
+                "properties": {
+                    "token": {
+                        "$ref": "#/components/schemas/BasicResult"
+                    },
+                    "validation": {
+                        "$ref": "#/components/schemas/Status"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "token",
+                    "validation"
+                ],
+                "title": "Get_access_token"
+            },
+            "Get_discovery_config": {
+                "properties": {
+                    "discovery_config": {
+                        "type": "object",
+                        "title": "Discovery Config"
+                    },
+                    "validation": {
+                        "type": "boolean",
+                        "title": "Validation"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "discovery_config",
+                    "validation"
+                ],
+                "title": "Get_discovery_config"
+            },
+            "Get_ibmcloud_config": {
+                "properties": {
+                    "ibmcloud_config": {
+                        "type": "object",
+                        "title": "Ibmcloud Config"
+                    },
+                    "validation": {
+                        "type": "boolean",
+                        "title": "Validation"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "ibmcloud_config",
+                    "validation"
+                ],
+                "title": "Get_ibmcloud_config"
+            },
+            "Get_pipeline_answer": {
+                "properties": {
+                    "answer": {
+                        "type": "object",
+                        "title": "Answer"
+                    },
+                    "context_documents": {
+                        "$ref": "#/components/schemas/Result"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "answer",
+                    "context_documents"
+                ],
+                "title": "Get_pipeline_answer"
+            },
+            "Get_simple_answer": {
+                "properties": {
+                    "answer": {
+                        "$ref": "#/components/schemas/BasicResult"
+                    },
+                    "validation": {
+                        "$ref": "#/components/schemas/Status"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "answer",
+                    "validation"
+                ],
+                "title": "Get_simple_answer"
+            },
+            "HTTPValidationError": {
+                "properties": {
+                    "detail": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Detail"
+                    }
+                },
+                "type": "object",
+                "title": "HTTPValidationError"
+            },
+            "Health": {
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "title": "Status"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "status"
+                ],
+                "title": "Health"
+            },
+            "Pipeline_question": {
+                "properties": {
+                    "question": {
+                        "type": "string",
+                        "title": "Question"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "question"
+                ],
+                "title": "Pipeline_question"
+            },
+            "Result": {
+                "properties": {
+                    "result": {
+                        "items": {
+                            "type": "object"
+                        },
+                        "type": "array",
+                        "title": "Result"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "result"
+                ],
+                "title": "Result"
+            },
+            "Run_discovery_query": {
+                "properties": {
+                    "context_documents": {
+                        "$ref": "#/components/schemas/Result"
+                    },
+                    "validation": {
+                        "$ref": "#/components/schemas/Status"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "context_documents",
+                    "validation"
+                ],
+                "title": "Run_discovery_query"
+            },
+            "Status": {
+                "properties": {
+                    "status": {
+                        "type": "boolean",
+                        "title": "Status"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "status"
+                ],
+                "title": "Status"
+            },
+            "ValidationError": {
+                "properties": {
+                    "loc": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Location"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "title": "ValidationError"
+            },
+            "Watsonx_simple_question": {
+                "properties": {
+                    "question": {
+                        "type": "string",
+                        "title": "Question"
+                    },
+                    "context": {
+                        "type": "string",
+                        "title": "Context"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "question",
+                    "context"
+                ],
+                "title": "Watsonx_simple_question"
+            }
+        },
+        "securitySchemes": {
+            "HTTPBasic": {
+                "type": "http",
+                "scheme": "basic"
+            }
+        }
+    }
+}

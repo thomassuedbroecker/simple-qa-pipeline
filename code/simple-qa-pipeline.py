@@ -1,6 +1,7 @@
 from fastapi import Depends, HTTPException, FastAPI
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from starlette.status import HTTP_401_UNAUTHORIZED
+from fastapi.openapi.utils import get_openapi
 ##################################
 # Custom modules
 from modules.load_env import load_watson_discovery_env, load_apikey_env, load_watson_x_env
@@ -95,6 +96,24 @@ async def get_a_pipeline_discovery_watsonx_anwser(pipeline_question: Pipeline_qu
     # print(f"***LOG:ny get_pipeline_answer validation \n{validation}\n\n")
 
     return {"answer": answer, "context_documents":context_documents}
+
+def custom_openapi():
+    if app.openapi_schema:
+        return app.openapi_schema
+    openapi_schema = get_openapi(
+        title="Simple QA pipeline",
+        version="3.0.1",
+        summary="Using OpenAPI v3.0.1 for integration to Watsonx Assistant",
+        description="This is a customization of the **OpenAPI version** in **fastAPI**",
+        routes=app.routes,
+    )
+    openapi_schema["info"]["x-logo"] = {
+        "url": "https://fastapi.tiangolo.com/img/logo-margin/logo-teal.png"
+    }
+    app.openapi_schema = openapi_schema
+    return app.openapi_schema
+
+app.openapi = custom_openapi
 
 if __name__=="__main__":
     import uvicorn
