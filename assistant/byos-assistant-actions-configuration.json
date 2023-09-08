@@ -4,7 +4,7 @@
     "valid": true,
     "status": "Available",
     "created": "2023-09-07T15:32:09.929Z",
-    "updated": "2023-09-08T08:00:07.909Z",
+    "updated": "2023-09-08T13:32:25.224Z",
     "language": "en",
     "skill_id": "933d7135-7892-41b6-b107-7efbe191f898",
     "workspace": {
@@ -20,9 +20,9 @@
                 "variables": [
                   {
                     "value": {
-                      "expression": "${3_internal_search_result}.title"
+                      "expression": "${2_res_answer}"
                     },
-                    "skill_variable": "4_display_title"
+                    "skill_variable": "4_dispay_text"
                   }
                 ]
               },
@@ -34,15 +34,62 @@
               "condition": {
                 "and": [
                   {
-                    "expression": "${3_internal_search_result}.title != null"
+                    "expression": "${2_res_answer}!=null"
                   },
                   {
-                    "expression": "${3_internal_search_result}.title ==\"Answer\""
-                  },
-                  {
-                    "expression": "${2_res_document_retrieval_strategy} == \"llm\""
+                    "expression": "${2_res_answer}!=\"WATSONX DOESN'T PROVIDE AN ANSWER\""
                   }
                 ]
+              },
+              "next_step": "step_586"
+            },
+            {
+              "step": "step_586",
+              "output": {
+                "generic": []
+              },
+              "context": {
+                "variables": [
+                  {
+                    "value": {
+                      "expression": "\"It seems we running out of token!\""
+                    },
+                    "skill_variable": "4_dispay_text"
+                  }
+                ]
+              },
+              "handlers": [],
+              "resolver": {
+                "type": "continue"
+              },
+              "variable": "step_586",
+              "condition": {
+                "expression": "${2_res_answer}==\"WATSONX DOESN'T PROVIDE AN ANSWER\""
+              },
+              "next_step": "step_763"
+            },
+            {
+              "step": "step_763",
+              "output": {
+                "generic": []
+              },
+              "context": {
+                "variables": [
+                  {
+                    "value": {
+                      "expression": "${2_res_answer}"
+                    },
+                    "skill_variable": "4_dispay_text"
+                  }
+                ]
+              },
+              "handlers": [],
+              "resolver": {
+                "type": "continue"
+              },
+              "variable": "step_763",
+              "condition": {
+                "expression": "${2_res_answer}!=\"WATSONX DOESN'T PROVIDE AN ANSWER\""
               },
               "next_step": "step_740"
             },
@@ -74,14 +121,7 @@
                 ]
               },
               "context": {
-                "variables": [
-                  {
-                    "value": {
-                      "expression": "${3_internal_search_result}.text"
-                    },
-                    "skill_variable": "4_dispay_text"
-                  }
-                ]
+                "variables": []
               },
               "handlers": [],
               "resolver": {
@@ -91,13 +131,17 @@
               "condition": {
                 "and": [
                   {
-                    "expression": "${3_internal_search_result}.text != null"
+                    "expression": "${4_dispay_text} != null"
                   },
                   {
-                    "expression": "${3_internal_search_result}.title == \"Answer\""
-                  },
-                  {
-                    "expression": "${2_res_document_retrieval_strategy} == \"llm\""
+                    "eq": [
+                      {
+                        "skill_variable": "4_internal_current_row"
+                      },
+                      {
+                        "scalar": "1"
+                      }
+                    ]
                   }
                 ]
               },
@@ -146,7 +190,7 @@
                   },
                   {
                     "value": {
-                      "expression": "${3_internal_search_result}.link"
+                      "expression": "${3_internal_search_result}.url"
                     },
                     "skill_variable": "4_display_link"
                   }
@@ -163,7 +207,73 @@
                     "expression": "${3_internal_search_result}.title != null"
                   },
                   {
-                    "expression": "${3_internal_search_result}.title != \"Answer\""
+                    "expression": "${3_internal_search_result}.url !=null"
+                  }
+                ]
+              },
+              "next_step": "step_881"
+            },
+            {
+              "step": "step_881",
+              "output": {
+                "generic": [
+                  {
+                    "values": [
+                      {
+                        "text_expression": {
+                          "concat": [
+                            {
+                              "scalar": "<a href=\""
+                            },
+                            {
+                              "skill_variable": "4_display_link"
+                            },
+                            {
+                              "scalar": "\" target=\"_blank\">"
+                            },
+                            {
+                              "skill_variable": "4_display_title"
+                            },
+                            {
+                              "scalar": "</a>"
+                            }
+                          ]
+                        }
+                      }
+                    ],
+                    "response_type": "text",
+                    "selection_policy": "sequential"
+                  }
+                ]
+              },
+              "context": {
+                "variables": [
+                  {
+                    "value": {
+                      "expression": "No title is available!"
+                    },
+                    "skill_variable": "4_display_title"
+                  },
+                  {
+                    "value": {
+                      "expression": "No link is available!"
+                    },
+                    "skill_variable": "4_display_link"
+                  }
+                ]
+              },
+              "handlers": [],
+              "resolver": {
+                "type": "continue"
+              },
+              "variable": "step_881",
+              "condition": {
+                "and": [
+                  {
+                    "expression": "${3_internal_search_result}.title == null"
+                  },
+                  {
+                    "expression": "${3_internal_search_result}.url ==null"
                   }
                 ]
               },
@@ -234,6 +344,11 @@
               "data_type": "any"
             },
             {
+              "title": "No response",
+              "variable": "step_586",
+              "data_type": "any"
+            },
+            {
               "variable": "step_609_result_1",
               "data_type": "any"
             },
@@ -259,6 +374,11 @@
               "data_type": "any"
             },
             {
+              "title": "No response",
+              "variable": "step_763",
+              "data_type": "any"
+            },
+            {
               "variable": "step_763_result_1",
               "data_type": "any"
             },
@@ -268,6 +388,11 @@
             },
             {
               "variable": "step_857_result_1",
+              "data_type": "any"
+            },
+            {
+              "title": "<a href=\"{variable}\" target=\"_blank\">{variable}</a>",
+              "variable": "step_881",
               "data_type": "any"
             },
             {
@@ -403,6 +528,12 @@
                       "expression": "${2_res_results}[0]"
                     },
                     "skill_variable": "3_internal_search_result"
+                  },
+                  {
+                    "value": {
+                      "scalar": 1
+                    },
+                    "skill_variable": "4_internal_current_row"
                   }
                 ]
               },
@@ -434,6 +565,12 @@
                       "expression": "${2_res_results}[1]"
                     },
                     "skill_variable": "3_internal_search_result"
+                  },
+                  {
+                    "value": {
+                      "scalar": 2
+                    },
+                    "skill_variable": "4_internal_current_row"
                   }
                 ]
               },
@@ -465,6 +602,12 @@
                       "expression": "${2_res_results}[2]"
                     },
                     "skill_variable": "3_internal_search_result"
+                  },
+                  {
+                    "value": {
+                      "scalar": 3
+                    },
+                    "skill_variable": "4_internal_current_row"
                   }
                 ]
               },
@@ -496,6 +639,12 @@
                       "expression": "${2_res_results}[3]"
                     },
                     "skill_variable": "3_internal_search_result"
+                  },
+                  {
+                    "value": {
+                      "scalar": 4
+                    },
+                    "skill_variable": "4_internal_current_row"
                   }
                 ]
               },
@@ -527,6 +676,12 @@
                       "expression": "${2_res_results}[4]"
                     },
                     "skill_variable": "3_internal_search_result"
+                  },
+                  {
+                    "value": {
+                      "scalar": 5
+                    },
+                    "skill_variable": "4_internal_current_row"
                   }
                 ]
               },
@@ -558,6 +713,12 @@
                       "expression": "${2_res_results}[5]"
                     },
                     "skill_variable": "3_internal_search_result"
+                  },
+                  {
+                    "value": {
+                      "scalar": 6
+                    },
+                    "skill_variable": "4_internal_current_row"
                   }
                 ]
               },
@@ -747,8 +908,8 @@
                   "type": "integration_interaction",
                   "method": "POST",
                   "internal": {
-                    "spec_hash_id": "386d16c6a8729b993afbf92950064d971905b18d49640f0119a6b1acf92a26b0",
-                    "catalog_item_id": "99d72d72-3ae5-42c7-bd27-d171d9ebd14d"
+                    "spec_hash_id": "b3ab841789f02c1c2740d0348e7b8631cd6af6dd1b154f88953e4490516f4e0b",
+                    "catalog_item_id": "3578bff3-89f6-4329-9fb7-9b791a3a0e75"
                   },
                   "request_mapping": {
                     "body": [
@@ -782,16 +943,21 @@
                   },
                   {
                     "value": {
-                      "variable": "step_995_result_2",
-                      "variable_path": "body.answer"
+                      "expression": "${step_995_result_2.body.length}"
+                    },
+                    "skill_variable": "3_internal_length"
+                  },
+                  {
+                    "value": {
+                      "expression": "${step_995_result_2.body.answer}.result"
                     },
                     "skill_variable": "2_res_answer"
                   },
                   {
                     "value": {
-                      "expression": "(${step_995_result_2.body.matching_results}+1)"
+                      "expression": "${step_995_result_2.body.context_documents.result}"
                     },
-                    "skill_variable": "3_internal_length"
+                    "skill_variable": "2_res_results"
                   }
                 ]
               },
@@ -880,7 +1046,7 @@
               "data_type": "any"
             },
             {
-              "title": "No response",
+              "title": "",
               "variable": "step_133",
               "data_type": "any"
             },
@@ -1669,6 +1835,12 @@
           "variable": "4_display_title",
           "data_type": "any",
           "description": "This will the title of an array entry."
+        },
+        {
+          "title": "4_internal_current_row",
+          "variable": "4_internal_current_row",
+          "data_type": "number",
+          "description": ""
         }
       ],
       "data_types": [],
