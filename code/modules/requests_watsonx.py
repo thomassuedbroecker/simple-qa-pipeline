@@ -178,7 +178,8 @@ def watsonx_prompt(documents, question):
                 json=json_data
               )
 
-              # print(f"***LOG:ny watsonx_prompt Answer response: \n{response}\n\n")
+              #print(f"***LOG: watsonx_prompt Answer response status: \n{response.status_code}\n\n")
+              #print(f"***LOG: watsonx_prompt Answer response content: \n{response.content}\n\n")
                 
               # 8. Verify result and extract answer from the return value
               if (response.status_code == 200):
