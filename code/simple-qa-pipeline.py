@@ -103,9 +103,9 @@ def custom_openapi():
     openapi_schema = get_openapi(
         title="Simple QA pipeline",
         version="1.0.0",
-        openapi_version="3.0.0",
-        summary="Using OpenAPI v3.0.1 for integration to Watsonx Assistant",
-        description="This is a customization of the **OpenAPI version** in **fastAPI**",
+        #openapi_version="3.1.0",
+        summary="Using OpenAPI v3.1.0 not for integration with Watsonx Assistant",
+        description="Example integration of Watsonx.ai and Watson Discovery.",
         routes=app.routes,
     )
     openapi_schema["info"]["x-logo"] = {
