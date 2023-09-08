@@ -82,9 +82,9 @@ async def get_a_pipeline_discovery_watsonx_anwser(pipeline_question: Pipeline_qu
 
     # 1. Search for context documents based on question
     context_documents, validation, length = discovery_query(pipeline_question.question)
-    print(f"***LOG: get_pipeline_answer Contect documents \n{context_documents} \n\n")
-    print(f"***LOG: get_pipeline_answer Validation \n{validation}\n\n")
-    print(f"***LOG: get_pipeline_answer Length \n{length}\n\n")
+    #print(f"***LOG: get_pipeline_answer Contect documents \n{context_documents} \n\n")
+    #print(f"***LOG: get_pipeline_answer Validation \n{validation}\n\n")
+    #print(f"***LOG: get_pipeline_answer Length \n{length}\n\n")
     
     check = validation["status"]
     if ( check == False ):        

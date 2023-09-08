@@ -3,10 +3,10 @@
     "type": "action",
     "valid": true,
     "status": "Available",
-    "created": "2023-03-16T16:00:46.362Z",
-    "updated": "2023-03-25T07:24:39.284Z",
+    "created": "2023-09-07T15:32:09.929Z",
+    "updated": "2023-09-08T08:00:07.909Z",
     "language": "en",
-    "skill_id": "dce84fc2-0a9c-4f72-97cd-520ead0781c9",
+    "skill_id": "933d7135-7892-41b6-b107-7efbe191f898",
     "workspace": {
       "actions": [
         {
@@ -334,6 +334,7 @@
                 "type": "invoke_another_action",
                 "invoke_action": {
                   "action": "action_44560",
+                  "policy": "default",
                   "parameters": null,
                   "result_variable": "step_621_result_1"
                 }
@@ -410,6 +411,7 @@
                 "type": "invoke_another_action",
                 "invoke_action": {
                   "action": "action_19541",
+                  "policy": "default",
                   "parameters": null,
                   "result_variable": "step_619_result_1"
                 }
@@ -440,6 +442,7 @@
                 "type": "invoke_another_action",
                 "invoke_action": {
                   "action": "action_19541",
+                  "policy": "default",
                   "parameters": null,
                   "result_variable": "step_810_result_1"
                 }
@@ -470,6 +473,7 @@
                 "type": "invoke_another_action",
                 "invoke_action": {
                   "action": "action_19541",
+                  "policy": "default",
                   "parameters": null,
                   "result_variable": "step_851_result_1"
                 }
@@ -500,6 +504,7 @@
                 "type": "invoke_another_action",
                 "invoke_action": {
                   "action": "action_19541",
+                  "policy": "default",
                   "parameters": null,
                   "result_variable": "step_857_result_1"
                 }
@@ -530,6 +535,7 @@
                 "type": "invoke_another_action",
                 "invoke_action": {
                   "action": "action_19541",
+                  "policy": "default",
                   "parameters": null,
                   "result_variable": "step_609_result_1"
                 }
@@ -560,6 +566,7 @@
                 "type": "invoke_another_action",
                 "invoke_action": {
                   "action": "action_19541",
+                  "policy": "default",
                   "parameters": null,
                   "result_variable": "step_629_result_1"
                 }
@@ -736,20 +743,20 @@
               "resolver": {
                 "type": "callout",
                 "callout": {
-                  "path": "/query",
+                  "path": "/get_pipeline_answer/",
                   "type": "integration_interaction",
                   "method": "POST",
                   "internal": {
-                    "spec_hash_id": "8a70ba37cc060946bcaf15721556f00f46fccfe10a85ffe68b9fd480fc15eaff",
-                    "catalog_item_id": "04b2155a-32b5-4e8c-9820-5f07c4ab1074"
+                    "spec_hash_id": "386d16c6a8729b993afbf92950064d971905b18d49640f0119a6b1acf92a26b0",
+                    "catalog_item_id": "99d72d72-3ae5-42c7-bd27-d171d9ebd14d"
                   },
                   "request_mapping": {
                     "body": [
                       {
                         "value": {
-                          "expression": "\"text:\".concat(${1_req_query_text})"
+                          "skill_variable": "1_req_query_text"
                         },
-                        "parameter": "query"
+                        "parameter": "question"
                       }
                     ]
                   },
@@ -776,22 +783,15 @@
                   {
                     "value": {
                       "variable": "step_995_result_2",
-                      "variable_path": "body.results"
+                      "variable_path": "body.answer"
                     },
-                    "skill_variable": "2_res_results"
+                    "skill_variable": "2_res_answer"
                   },
                   {
                     "value": {
                       "expression": "(${step_995_result_2.body.matching_results}+1)"
                     },
                     "skill_variable": "3_internal_length"
-                  },
-                  {
-                    "value": {
-                      "variable": "step_995_result_2",
-                      "variable_path": "body.retrievalDetails.document_retrieval_strategy"
-                    },
-                    "skill_variable": "2_res_document_retrieval_strategy"
                   }
                 ]
               },
@@ -800,6 +800,7 @@
                 "type": "invoke_another_action",
                 "invoke_action": {
                   "action": "action_43598",
+                  "policy": "default",
                   "parameters": null,
                   "result_variable": "step_133_result_1"
                 }
@@ -947,7 +948,7 @@
               "data_type": "any"
             },
             {
-              "title": "",
+              "title": "No response",
               "variable": "step_995",
               "data_type": "any"
             },
@@ -1021,6 +1022,7 @@
                 "type": "invoke_another_action_and_end",
                 "invoke_action": {
                   "action": "fallback",
+                  "policy": "default",
                   "parameters": null,
                   "result_variable": "step_002_result_1"
                 }
@@ -1514,13 +1516,10 @@
           "intent": "action_7584_intent_2254",
           "examples": [
             {
-              "text": "IBM"
+              "text": "What about visit Paris?"
             },
             {
-              "text": "Where can"
-            },
-            {
-              "text": "Where can I find detailed purchasing spend information?"
+              "text": "Where should I go?"
             }
           ]
         },
@@ -1583,6 +1582,18 @@
           "variable": "1_req_query_text",
           "data_type": "any",
           "description": "This is the search input from the user."
+        },
+        {
+          "title": "1_req_result",
+          "variable": "1_req_result",
+          "data_type": "any",
+          "description": ""
+        },
+        {
+          "title": "2_res_answer",
+          "variable": "2_res_answer",
+          "data_type": "any",
+          "description": ""
         },
         {
           "title": "2_res_document_retrieval_strategy",
@@ -1661,6 +1672,7 @@
         }
       ],
       "data_types": [],
+      "collections": [],
       "counterexamples": [],
       "system_settings": {
         "nlp": {
@@ -1771,8 +1783,8 @@
       "learning_opt_out": false
     },
     "description": "created for assistant 993d8df5-6a3f-440b-b2c7-a40de45900b7",
-    "assistant_id": "e7d64d56-e022-41aa-9cbe-138d9eeb0538",
-    "workspace_id": "dce84fc2-0a9c-4f72-97cd-520ead0781c9",
+    "assistant_id": "2eae0b4f-a577-49fd-a69a-77ba6e55a889",
+    "workspace_id": "933d7135-7892-41b6-b107-7efbe191f898",
     "dialog_settings": {},
     "next_snapshot_version": "1"
   }
