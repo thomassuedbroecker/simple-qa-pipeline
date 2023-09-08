@@ -87,8 +87,9 @@ async def get_a_pipeline_discovery_watsonx_anwser(pipeline_question: Pipeline_qu
     #print(f"***LOG: get_pipeline_answer Length \n{length}\n\n")
     
     check = validation["status"]
-    if ( check == False ):        
-        return {"answer": {"result":"ERROR IN PIPELINE"}, "context_documents":context_documents}
+    if ( check == False ):
+        str_length = str(length["length"])        
+        return {"answer": {"result":"ERROR IN PIPELINE"}, "context_documents":context_documents, "length": str_length}
 
     # 2. Create answer based on context documents
     answer, validation = watsonx_prompt(context_documents, pipeline_question.question)
