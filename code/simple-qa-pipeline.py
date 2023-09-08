@@ -59,10 +59,10 @@ def get_ibmcloud_config() -> Any:
 
 @app.post("/run_discovery_query/", response_model=Run_discovery_query)
 async def run_a_discovery_query(discovery_question:Discovery_question) -> Any:
-    data, validation = discovery_query(discovery_question.question)
+    data, validation, length = discovery_query(discovery_question.question)
     # print(f"***LOG:\n run_discovery_query - data: \n{data}\n\n")
     # print(f"***LOG:\n run_discovery_query - validation: \n{validation}\n\n")
-    return_value = {"context_documents": data, "validation":validation }
+    return_value = {"context_documents": data, "length": length, "validation":validation }
     # print(f"***LOG:\n run_discovery_query - return_value: \n{return_value}\n\n")
     return return_value
 
@@ -81,9 +81,10 @@ def get_an_ibm_cloud_access_token() -> Any:
 async def get_a_pipeline_discovery_watsonx_anwser(pipeline_question: Pipeline_question) -> Any:
 
     # 1. Search for context documents based on question
-    context_documents, validation = discovery_query(pipeline_question.question)
-    # print(f"***LOG:ny get_pipeline_answer Contect documents \n{context_documents} \n\n")
-    # print(f"***LOG:ny get_pipeline_answer Validation \n{validation}\n\n")
+    context_documents, validation, length = discovery_query(pipeline_question.question)
+    print(f"***LOG: get_pipeline_answer Contect documents \n{context_documents} \n\n")
+    print(f"***LOG: get_pipeline_answer Validation \n{validation}\n\n")
+    print(f"***LOG: get_pipeline_answer Length \n{length}\n\n")
     
     check = validation["status"]
     if ( check == False ):        
@@ -94,8 +95,8 @@ async def get_a_pipeline_discovery_watsonx_anwser(pipeline_question: Pipeline_qu
 
     # print(f"***LOG:ny get_pipeline_answer answer \n{answer} \n\n")
     # print(f"***LOG:ny get_pipeline_answer validation \n{validation}\n\n")
-
-    return {"answer": answer, "context_documents":context_documents}
+    str_length = str(length["length"])
+    return {"answer": answer,  "context_documents": context_documents, "length": str_length }
 
 def custom_openapi():
     if app.openapi_schema:

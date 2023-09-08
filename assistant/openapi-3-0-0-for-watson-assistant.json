@@ -297,6 +297,10 @@
                         "type": "object",
                         "title": "Answer"
                     },
+                    "length": {
+                        "type": "string",
+                        "title": "Length"
+                    },
                     "context_documents": {
                         "$ref": "#/components/schemas/Result"
                     }
@@ -377,6 +381,10 @@
                 "properties": {
                     "context_documents": {
                         "$ref": "#/components/schemas/Result"
+                    },
+                    "length": {
+                        "type": "string",
+                        "title": "Length"
                     },
                     "validation": {
                         "$ref": "#/components/schemas/Status"

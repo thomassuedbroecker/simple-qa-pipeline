@@ -29,6 +29,7 @@ class Get_ibmcloud_config(BaseModel):
 
 class Run_discovery_query(BaseModel):
      context_documents: Result
+     length: str
      validation: Status
 
 # Example return value
@@ -41,10 +42,10 @@ class Run_discovery_query(BaseModel):
 #       }
 #     ]
 #  },
+#  "length": "4",
 #  "validation": {
 #      "status": true
 #  }
-
 
 
 class Get_simple_answer(BaseModel):
@@ -66,6 +67,7 @@ class Get_access_token(BaseModel):
 
 class Get_pipeline_answer(BaseModel):
     answer: dict
+    length: str
     context_documents: Result
 
 # Example return value
@@ -73,6 +75,7 @@ class Get_pipeline_answer(BaseModel):
 #    "answer": {
 #      "result": "Answer text"
 #    },
+#    "length": "4"
 #    "context_documents": {
 #      "result": [
 #        {

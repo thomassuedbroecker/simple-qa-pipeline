@@ -4,6 +4,7 @@ from .load_env import load_watson_discovery_env
 def discovery_query(query_text):
     data, verification = load_watson_discovery_env()
     max_count=4
+    length=0
 
     if (verification):
         
@@ -82,6 +83,7 @@ def discovery_query(query_text):
                             new_item={"text":text,"title":title,"url":document_url}
                             return_data.append(new_item)
                     i = i + 1
+                    length = i
                     if (i == max_count):
                         break
                 data = return_data
@@ -98,5 +100,7 @@ def discovery_query(query_text):
         data = [{"data":"discovery is not configured"}]
         return_data.append(new_item)
         data = return_data
-
-    return {"result": data} , {"status": verification} 
+    
+    str_length = str(length)
+    
+    return {"result": data } , {"status": verification} , {"length": str_length}
