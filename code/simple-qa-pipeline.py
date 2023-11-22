@@ -36,6 +36,9 @@ app = FastAPI(dependencies=[Depends(authenticate)])
 # Endpoints
 @app.get("/")
 def root_show_configuration_status():
+    """
+    This endpoint verifies the configuration status of IBM Watson Discovery.
+    """
     config, validation = load_watson_discovery_env()
     if (validation):
         status = "configured"
@@ -45,20 +48,32 @@ def root_show_configuration_status():
 
 @app.get("/health", response_model=Health) 
 def provide_health_status() -> Any:
+    """
+    This endpoint implements the health status to enable that the application runs on a container management platform like Kubernetes.
+    """
     return { "status": "ok"}
 
 @app.get("/get_discovery_config", response_model=Get_discovery_config)
-def get_discovery_config() -> Any: 
+def get_discovery_config() -> Any:
+    """
+    This endpoint provides the configuration for IBM Watson Discovery.
+    """
     config, validation = load_watson_discovery_env()
     return {"discovery_config":config, "validation":validation }
 
 @app.get("/get_ibmcloud_config", response_model=Get_ibmcloud_config)
 def get_ibmcloud_config() -> Any:
+    """
+    This endpoint provides the configuration for IBM Cloud.
+    """
     config, validation = load_ibmcloud_env()
     return {"ibmcloud_config":config, "validation":validation }
 
 @app.post("/run_discovery_query/", response_model=Run_discovery_query)
 async def run_a_discovery_query(discovery_question:Discovery_question) -> Any:
+    """
+    This endpoint runs an IBM Watson Discovery query and returns the result as a list of documents.
+    """
     data, validation, length = discovery_query(discovery_question.question)
     # print(f"***LOG:\n run_discovery_query - data: \n{data}\n\n")
     # print(f"***LOG:\n run_discovery_query - validation: \n{validation}\n\n")
@@ -68,17 +83,28 @@ async def run_a_discovery_query(discovery_question:Discovery_question) -> Any:
 
 @app.post("/get_simple_answer/", response_model=Get_simple_answer)
 async def get_a_watsonx_answer(watsonx_simple_question:Watsonx_simple_question) -> Any:
+    """
+    This endpoint sends a prompt to IBM Watsonx.ai. This prompt is configured by the environment variable `WATSONX_PROMPT` by using the variables <<CONTEXT>> and <<QUESTION>>.
+    """
     answer, validation = watsonx_simple_prompt(watsonx_simple_question.context,
                                                watsonx_simple_question.question)
     return {"answer":answer, "validation":validation}
 
 @app.get("/get_access_token", response_model=Get_access_token)
 def get_an_ibm_cloud_access_token() -> Any:
+    """
+    This endpoint returns an IBM Cloud access token for the account configure in the environment variables.
+    """
     data, validation = get_token()
     return {"token":data, "validation":validation }
 
 @app.post("/get_pipeline_answer/", response_model=Get_pipeline_answer)
 async def get_a_pipeline_discovery_watsonx_anwser(pipeline_question: Pipeline_question) -> Any:
+    """
+    This endpoint runs a pipeline in following order:
+    1. Search for context documents based on question in IBM Watson Discovery.
+    2. Create an answer with Watsonx.ai based on the provided context documents and the question.
+    """
 
     # 1. Search for context documents based on question
     context_documents, validation, length = discovery_query(pipeline_question.question)

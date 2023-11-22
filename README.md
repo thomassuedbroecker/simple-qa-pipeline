@@ -85,6 +85,7 @@ export APP_APIKEY=admin
 ### 3.3 Run `simple-qa-pipeline` server
 
 ```sh
+cd code
 source ./simple-pipeline-env-3.11/bin/activate
 source .env
 python3 simple-qa-pipeline.py
