@@ -3,8 +3,10 @@ services:
   question-answering:
     build: 
       context: ${QA_SERVICE_DOCKER_CONTEXT}
-      dockerfile: ${QA_SERVICE_DOCKER_CONTEXT}/docker/Dockerfile
-    image: simple-qa-pipeline:v1.0.0
+      #dockerfile: ${QA_SERVICE_DOCKER_CONTEXT}/docker/Dockerfile
+      dockerfile: ${QA_SERVICE_DOCKER_CONTEXT}/docker/Dockerfile.optimized
+    #image: simple-qa-pipeline:v1.0.0
+    image: simple-pipeline-optimized:1.0.0
     container_name: simple-qa-pipeline
     ports:
       - 8081:8081

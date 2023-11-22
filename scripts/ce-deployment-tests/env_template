@@ -1,0 +1,11 @@
+# IBM Cloud
+export IBM_CLOUD_RESOURCE_GROUP=default
+export IBM_CLOUD_REGION=us-east
+export IBM_CLOUD_API_KEY=
+
+# Code Engine
+export CODEENGINE_PROJECT_NAME=
+export CE_DOMAIN=
+
+# Verify Response
+export OUTPUT_CHECK=
