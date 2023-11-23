@@ -2,11 +2,11 @@
 
 This project contains a simple example implementation for a simple `question-answering pipeline` using an `inside-search` (`IBM Cloud Watson Discovery`) and a `prompt` (`IBM watsonx` with `prompt-lab`) to create an answer.
 
-Related blog post: [IBM watsonx and a simple question-answering pipeline using Python and fastAPI](https://wp.me/paelj4-21Y)
+Related blog post: [IBM watsonx and a simple question-answering pipeline using Python and FastAPI](https://wp.me/paelj4-21Y)
 
 ## 1. Objective
 
-The objective is to implement an elementary `question-answering pipeline` example by showing how to consume existing REST APIs and create a REST API with [`fastAPI`](https://github.com/tiangolo/fastapi) and `Python` because `Python` is well-known in the AI world.
+The objective is to implement an elementary `question-answering pipeline` example by showing how to consume existing REST APIs and create a REST API with [`FastAPI`](https://github.com/tiangolo/FastAPI) and `Python` because `Python` is well-known in the AI world.
 
 >Note: An excellent and detailed example implementation for a `question-answering pipeline` in the [`question-answering project`](https://github.com/nheidloff/question-answering). That project contains many more details and integrations; the `question-answering pipeline` is implemented in Java.
 The project also provides an example implementation for an experiment execution for the question-answering pipeline the service for the execution is called `experiment-runner` and is implemented in Python. [Niklas Heidloff](https://heidloff.net) has written many awesome blog posts about AI and this [`question-answering project`](https://github.com/nheidloff/question-answering). I recommend briefly looking at the related blog posts to this project.
@@ -167,7 +167,7 @@ There is no [`Lite plan`](https://www.ibm.com/cloud/free) available, but when yo
 
 ## 5. Summary
 
-With [`fastAPI`](https://github.com/tiangolo/fastapi) and `Python` was easy and fasted to implement the `simple-qa-pipeline`.
+With [`FastAPI`](https://github.com/tiangolo/fastapi) and `Python` was easy and fasted to implement the `simple-qa-pipeline`.
 With the automated created Swagger documentation, manually testing the `REST API` for the `simple-qa-pipeline` was easy.
 We can download the OpenAPI spec directly and use its `REST API` in other integration scenarios like BYOS with Watson Assistant.
 
