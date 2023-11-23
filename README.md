@@ -1,8 +1,8 @@
 # Simple `question-answering pipeline` using inside search and prompt with a Large Langauge Model.
 
-This project contains a simple example implementation for a simple `question-answering pipeline` using an `inside-search` (`IBM Cloud Watson Discovery`) and a `prompt` (`IBM Watsonx` with `prompt-lab`) to create an answer.
+This project contains a simple example implementation for a simple `question-answering pipeline` using an `inside-search` (`IBM Cloud Watson Discovery`) and a `prompt` (`IBM watsonx` with `prompt-lab`) to create an answer.
 
-Related blog post: [IBM Watsonx and a simple question-answering pipeline using Python and fastAPI](https://wp.me/paelj4-21Y)
+Related blog post: [IBM watsonx and a simple question-answering pipeline using Python and fastAPI](https://wp.me/paelj4-21Y)
 
 ## 1. Objective
 
@@ -13,7 +13,7 @@ The project also provides an example implementation for an experiment execution 
 
 ## 2. Simplified Architecture
 
-The `simple-qa-pipeline` creates an answer to a question using a [Large Language Model]() inside [Watsonx with the Prompt lab](https://dataplatform.cloud.ibm.com/docs/content/wsj/getting-started/welcome-main.html?context=wx&audience=wdp) and it searches for documents with Watson Discovery to provide the context.
+The `simple-qa-pipeline` creates an answer to a question using a [Large Language Model]() inside [watsonx with the Prompt lab](https://dataplatform.cloud.ibm.com/docs/content/wsj/getting-started/welcome-main.html?context=wx&audience=wdp) and it searches for documents with Watson Discovery to provide the context.
 
 ![](/images/simple-pipeline-pipeline.drawio.png)
 
@@ -67,7 +67,7 @@ export DISCOVERY_URL=https://api.us-east.discovery.watson.cloud.ibm.com/instance
 export DISCOVERY_COLLECTION_ID=
 export DISCOVERY_PROJECT=
 export DISCOVERY_INSTANCE=
-# WatsonX
+# watsonx
 export WATSONX_URL="https://us-south.ml.cloud.ibm.com/ml/v1-beta/generation/text"
 export WATSONX_LLM_NAME=google/flan-ul2
 export WATSONX_MIN_NEW_TOKENS=1
@@ -105,7 +105,7 @@ open http://localhost:8081/docs
 * Context:  `"My name is Thomas."`
 
 * Invoke the REST API endpoint `get_simple_answer` in the Swagger UI with the given values.
-* Open the `Watsonx Prompt lab` and insert the following prompt.
+* Open the `watsonx Prompt lab` and insert the following prompt.
 
 ```
 Document:
@@ -137,11 +137,11 @@ There is no [`Lite plan`](https://www.ibm.com/cloud/free) available, but when yo
 * Extract the project ID and collection ID
   * If you need additional help, you can visit my blog post [Show the collection IDs of IBM Cloud Watson Discovery projects using cURL](https://suedbroecker.net/2023/05/12/show-the-collection-ids-of-ibm-cloud-watson-discovery-projects-using-curl/)
 
-### 3.5.2 Watsonx instance
+### 3.5.2 watsonx instance
 
-1. Visit the [Watsonx link](https://www.ibm.com/watsonx) and get a free trial.
+1. Visit the [watsonx link](https://www.ibm.com/watsonx) and get a free trial.
 2. A `Sandbox project` will be created for you called `Sandbox`
-3. The Watsonx documentation is available on [IBM Cloud](https://dataplatform.cloud.ibm.com/docs/content/wsj/getting-started/welcome-main.html?context=wx&audience=wdp)
+3. The watsonx documentation is available on [IBM Cloud](https://dataplatform.cloud.ibm.com/docs/content/wsj/getting-started/welcome-main.html?context=wx&audience=wdp)
 4. [Open Prompt lab](https://dataplatform.cloud.ibm.com/docs/content/wsj/analyze-data/fm-prompt-lab.html?context=wx&audience=wdp)
 5. Open view code
 ![](/images/watsonx-01.gif)
@@ -149,12 +149,12 @@ There is no [`Lite plan`](https://www.ibm.com/cloud/free) available, but when yo
 
 ![](/images/watsonx-03.gif))
 
-* With Watsonx sandbox project creation following services will be instantiated in your IBM Cloud Account:
+* With watsonx sandbox project creation following services will be instantiated in your IBM Cloud Account:
 
   * [Watson Studio](https://www.ibm.com/products/watson-studio)
   * [Watson Machine Learning](https://cloud.ibm.com/catalog/services/watson-machine-learning)
   * [Cloud Object Storage](https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-getting-started-cloud-object-storage)
-  The gif below shows how you can access Watsonx from your Watson Studion in your IBM Cloud Account.
+  The gif below shows how you can access watsonx from your Watson Studion in your IBM Cloud Account.
   ![](/images/watsonx-03.gif)
 
 * Simplified dependencies of the created Watonx environment
@@ -171,4 +171,4 @@ With [`fastAPI`](https://github.com/tiangolo/fastapi) and `Python` was easy and 
 With the automated created Swagger documentation, manually testing the `REST API` for the `simple-qa-pipeline` was easy.
 We can download the OpenAPI spec directly and use its `REST API` in other integration scenarios like BYOS with Watson Assistant.
 
-The good REST API documentation from IBM Cloud and Watsonx made it easy to use them even without the SDK.
+The good REST API documentation from IBM Cloud and watsonx made it easy to use them even without the SDK.
