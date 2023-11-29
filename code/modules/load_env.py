@@ -80,6 +80,32 @@ def load_watson_x_env():
 
     return configurationJSON, configurationStatus
 
+def load_watsonx_deployment_env():
+
+        if (os.environ.get("WATSONX_DEPLOYMENT_ID") == None):
+               WATSONX_DEPLOYMENT_ID = ''
+        else:
+               WATSONX_DEPLOYMENT_ID = os.environ.get("WATSONX_DEPLOYMENT_ID")
+
+        if (os.environ.get("WATSONX_DEPLOYMENT_URL") == None):
+                WATSONX_DEPLOYMENT_URL = ''
+        else:
+                WATSONX_DEPLOYMENT_URL = os.environ.get("WATSONX_DEPLOYMENT_URL")
+
+        
+        if ((WATSONX_DEPLOYMENT_ID=='') or
+            (WATSONX_DEPLOYMENT_URL=='')):
+                configurationStatus = False
+        else:
+                configurationStatus = True
+        
+        configurationJSON = { "WATSONX_DEPLOYMENT_URL": WATSONX_DEPLOYMENT_URL,
+                              "WATSONX_DEPLOYMENT_ID":WATSONX_DEPLOYMENT_ID
+                            }
+
+        return configurationJSON, configurationStatus
+       
+       
 def load_watson_discovery_env():
     if (os.environ.get("DISCOVERY_API_KEY") == None):
             DISCOVERY_API_KEY = ''

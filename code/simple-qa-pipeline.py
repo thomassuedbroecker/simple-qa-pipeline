@@ -10,6 +10,7 @@ from modules.requests_watsonx import watsonx_prompt, watsonx_simple_prompt
 from modules.requests_ibmcloud_token import get_token, load_ibmcloud_env
 from modules.apis_payload import Watsonx_simple_question, Discovery_question, Pipeline_question
 from modules.apis_response_format import Get_access_token, Get_discovery_config,Get_ibmcloud_config, Get_pipeline_answer, Get_simple_answer, Run_discovery_query, Health
+from modules.requests_watsonx_deployments import get_answer_from_watsonx_deployment
 
 from typing import Any
 
@@ -125,6 +126,24 @@ async def get_a_pipeline_discovery_watsonx_anwser(pipeline_question: Pipeline_qu
     str_length = str(length["length"])
     return {"answer": answer,  "context_documents": context_documents, "length": str_length }
 
+@app.post("/get_watsonx_deployment_answer/", response_model=Get_simple_answer)
+async def get_watsonx_deployment_answer(watsonx_simple_question:Watsonx_simple_question) -> Any:
+    """
+    This endpoint implements an access to an endpoint provided by a watsonx deployment.
+    1. Search for context documents based on question in a search resource.
+    2. Creates an answer with watsonx.ai based on the provided context context and the question.
+    """
+    print(f"context: {watsonx_simple_question.context}")
+    print(f"question: {watsonx_simple_question.question}")
+    question = watsonx_simple_question.question
+    context = watsonx_simple_question.context
+    answer, validation = get_answer_from_watsonx_deployment( question, context )
+
+    return {"answer":answer, "validation":validation}
+
+
+######################################
+# Open API defintion
 def custom_openapi():
     if app.openapi_schema:
         return app.openapi_schema
