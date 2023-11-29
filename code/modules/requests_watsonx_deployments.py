@@ -20,19 +20,19 @@ def get_answer_from_watsonx_deployment( context , question ):
                        "Accept":"application/json", 
                        "Authorization": apikey }
             
-            # NOTE: manually define and pass the array(s) of values to be scored in the next line
-            payload_scoring = {"input_data":[{"fields":[ context ],
-                                              "values": [ question ]
-                                              }]}
+            payload = {"input_data":[{"fields":[ context ],
+                                      "values": [ question ]
+                                     }]}
             
-            print(f" payload_scoring: {payload_scoring}")
-            print(f" url: {watsonx_deployment['WATSONX_DEPLOYMENT_URL']}")
-            
-            
+            print(f"*** LOG: payload {payload}")
+            print(f"*** LOG:  url {watsonx_deployment['WATSONX_DEPLOYMENT_URL']}")
+                      
             response = requests.post({watsonx_deployment['WATSONX_DEPLOYMENT_URL']}, 
-                                     json=payload_scoring,
+                                     json=payload,
                                      headers=headers)
-            print(f"{response}")
+            
+            print(f"*** LOG: {response.content}")
+
             # Verify result and extract answer from the return vaule
             if (response.status_code == 200):
                     data = response.json()
