@@ -21,7 +21,7 @@ def get_answer_from_watsonx_deployment( context , question ):
                        "Authorization": apikey }
             
             payload = {"input_data":[{"fields":[ context ],
-                                      "values": [ question ]
+                                      "values":[ question ]
                                      }]}
             
             print(f"*** LOG: payload {payload}")
