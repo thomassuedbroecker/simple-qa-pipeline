@@ -13,7 +13,7 @@ def get_answer_from_watsonx_deployment( context , question ):
 
         if (verification_watsonx_deployment):
 
-            print(f" verification_watsonx_deployment: {verification_watsonx_deployment}")
+            print(f"***LOG: verification_watsonx_deployment: {verification_watsonx_deployment}")
 
 
             headers = {"Content-Type": "application/json", 
