@@ -92,15 +92,22 @@ def load_watsonx_deployment_env():
         else:
                 WATSONX_DEPLOYMENT_URL = os.environ.get("WATSONX_DEPLOYMENT_URL")
 
+        if (os.environ.get("WATSONX_DEPLOYMENT_VERSION") == None):
+                WATSONX_DEPLOYMENT_VERSION = ''
+        else:
+                WATSONX_DEPLOYMENT_VERSION = os.environ.get("WATSONX_DEPLOYMENT_VERSION")
+
         
         if ((WATSONX_DEPLOYMENT_ID=='') or
-            (WATSONX_DEPLOYMENT_URL=='')):
+            (WATSONX_DEPLOYMENT_URL=='') or 
+            (WATSONX_DEPLOYMENT_VERSION=='')):
                 configurationStatus = False
         else:
                 configurationStatus = True
         
         configurationJSON = { "WATSONX_DEPLOYMENT_URL": WATSONX_DEPLOYMENT_URL,
-                              "WATSONX_DEPLOYMENT_ID":WATSONX_DEPLOYMENT_ID
+                              "WATSONX_DEPLOYMENT_ID":WATSONX_DEPLOYMENT_ID,
+                              "WATSONX_DEPLOYMENT_VERSION":WATSONX_DEPLOYMENT_VERSION
                             }
 
         return configurationJSON, configurationStatus

@@ -172,3 +172,7 @@ With the automated created Swagger documentation, manually testing the `REST API
 We can download the OpenAPI spec directly and use its `REST API` in other integration scenarios like BYOS with Watson Assistant.
 
 The good REST API documentation from IBM Cloud and watsonx made it easy to use them even without the SDK.
+
+## 6. Additional resources
+
+* [VS Code Python debugging](https://code.visualstudio.com/docs/python/debugging)
