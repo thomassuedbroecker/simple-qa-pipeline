@@ -129,9 +129,8 @@ async def get_a_pipeline_discovery_watsonx_anwser(pipeline_question: Pipeline_qu
 @app.post("/get_watsonx_deployment_answer/", response_model=Get_simple_answer)
 async def get_watsonx_deployment_answer(watsonx_simple_question:Watsonx_simple_question) -> Any:
     """
-    This endpoint implements an access to an endpoint provided by a watsonx deployment.
-    1. Search for context documents based on question in a search resource.
-    2. Creates an answer with watsonx.ai based on the provided context context and the question.
+    This endpoint implements an access to an endpoint provided by a `watsonx deployment` created with a `Jupyter Notebook`.
+    Here is the link to IBM Cloud documentation `https://cloud.ibm.com/apidocs/machine-learning#deployments-compute-predictions`
     """
     print(f"context: {watsonx_simple_question.context}")
     print(f"question: {watsonx_simple_question.question}")
