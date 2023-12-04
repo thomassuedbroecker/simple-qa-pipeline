@@ -176,3 +176,8 @@ The good REST API documentation from IBM Cloud and watsonx made it easy to use t
 ## 6. Additional resources
 
 * [VS Code Python debugging](https://code.visualstudio.com/docs/python/debugging)
+* [OpenAPI Swagger `array of strings`](https://stackoverflow.com/questions/39281532/specify-an-array-of-strings-as-body-parameter-in-swagger-api)
+* [OpenAPI Swagger `array of objects`](https://stackoverflow.com/questions/63738715/how-to-define-an-array-of-objects-in-openapi-3-0)
+* [OpenAPI Swagger `authentication`](https://swagger.io/docs/specification/authentication/)
+* [OpenAPI Swagger `apikey authentication`](https://github.com/watson-developer-cloud/assistant-toolkit/blob/master/integrations/extensions/starter-kits/language-model-watsonx/watsonx-openapi.json#L14)
+* [Required properties](https://stackoverflow.com/questions/40113049/how-to-specify-if-a-field-is-optional-or-required-in-openapi-swagger)
