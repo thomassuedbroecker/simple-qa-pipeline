@@ -2,16 +2,19 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from .load_env import load_custom_model_env
 
 def custom_model_load( modelname_or_modelpath):
+    print(f"*** LOG: load model {modelname_or_modelpath}")
     model = AutoModelForCausalLM.from_pretrained(modelname_or_modelpath,
-                                                 device_map="cuda", #auto, balanced
-                                                 trust_remote_code=False,
+                                                 device_map="auto", #cuda, #auto, balanced
+                                                 #trust_remote_code=False,
                                                  revision="main")
     tokenizer = AutoTokenizer.from_pretrained(modelname_or_modelpath, use_fast=True)
     return tokenizer, model
 
 def custom_model_simple_prompt( text, question, modelname_or_modelpath):
     
-    model, tokenizer = custom_model_load( modelname_or_modelpath)
+    print(f"*** LOG: create prompt")
+    tokenizer,  model = custom_model_load(modelname_or_modelpath)
+    
     custom_model_env, verification = load_custom_model_env()
 
     prompt_context_replace_template="<<CONTEXT>>"
@@ -21,8 +24,11 @@ def custom_model_simple_prompt( text, question, modelname_or_modelpath):
 
     # Build the prompt with context text and question
     prompt = custom_model_env["CUSTOM_MODEL_PROMPT"]
+    print(f"*** LOG: {prompt}")
     input_txt = prompt.replace(prompt_context_replace_template,documents_txt)
     data_input = input_txt.replace(prompt_question_replace_template,question)
+    
+    print(f"*** LOG: {data_input}")
 
     input_ids = tokenizer(data_input, return_tensors='pt').input_ids.cuda()
     output = model.generate(inputs=input_ids, temperature=0.7, 
@@ -33,4 +39,3 @@ def custom_model_simple_prompt( text, question, modelname_or_modelpath):
     answer = tokenizer.decode(output[0])
     print(f"*** LOG: {answer}")
     return answer, verification
-
