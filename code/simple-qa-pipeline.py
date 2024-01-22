@@ -1,4 +1,5 @@
-from fastapi import Depends, HTTPException, FastAPI
+from typing import Annotated, Any
+from fastapi import Depends, HTTPException, FastAPI, File, UploadFile, Form
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from starlette.status import HTTP_401_UNAUTHORIZED
 from fastapi.openapi.utils import get_openapi
@@ -9,10 +10,9 @@ from modules.requests_discovery import discovery_query
 from modules.requests_watsonx import watsonx_prompt, watsonx_simple_prompt
 from modules.requests_ibmcloud_token import get_token, load_ibmcloud_env
 from modules.apis_payload import Watsonx_simple_question, Discovery_question, Pipeline_question
-from modules.apis_response_format import Get_access_token, Get_discovery_config,Get_ibmcloud_config, Get_pipeline_answer, Get_simple_answer, Run_discovery_query, Health
+from modules.apis_response_format import Get_access_token, Get_discovery_config,Get_ibmcloud_config, Get_pipeline_answer, Get_simple_answer, Run_discovery_query, Health, Get_custom_model_text_file
 from modules.requests_watsonx_deployments import get_answer_from_watsonx_deployment
-
-from typing import Any
+from modules.requests_local_custom_model import custom_model_simple_prompt
 
 ##################################
 # Set basic auth as security
@@ -140,6 +140,26 @@ async def get_watsonx_deployment_answer(watsonx_simple_question:Watsonx_simple_q
 
     return {"answer":answer, "validation":validation}
 
+@app.post("/get_custom_model_file_with_prompt/", response_model=Get_custom_model_text_file)
+async def get_custom_model_file_with_prompt(  file: Annotated[UploadFile, File(description="A file as context for the question")],
+                                              question: Annotated[str, Form()],
+                                              modelname_or_modelpath: Annotated[str, Form()]) -> Any:
+    """
+    This endpoint sends a prompt a custom model. This prompt is configured by the environment variable `CUSTOM_MODEL_PROMPT` by using the variables `<<CONTEXT>>` and `<<QUESTION>>`.
+    The context in the unformated content of the uploaded file.
+    Only works on GPU!
+    """  
+    context =  await file.read()
+    text, validation = custom_model_simple_prompt(str(context),question,modelname_or_modelpath)
+    print(f"***DEBUG: output text: {text}")
+    
+    if ( validation == True):
+        result = { "result": text, "filename": file.filename, "modelname": modelname_or_modelpath  }
+        return { "text": result , "validation":  {"status" : str(validation)}}
+    else:
+        result = { "result": text , "filename": file.filename}
+        print(f"***DEBUG: else (get_custom_model_text): {result}: {validation}")
+        return { "text": result , "validation":  {"status" : str(validation)}}
 
 ######################################
 # Open API defintion

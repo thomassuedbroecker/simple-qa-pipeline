@@ -17,6 +17,10 @@ class Result(BaseModel):
 class Status (BaseModel):
     status: bool
 
+class BasicFileResult(BaseModel):
+    result: str
+    filename: str
+
 ### Responses
 
 class Get_discovery_config(BaseModel):
@@ -92,6 +96,21 @@ class Get_pipeline_answer(BaseModel):
 #    }
 #   }
 #
+
+####################################
+# Example return value
+#{
+#  "text": {
+#    "result": "text_string",
+#    "filename": "filename_string"
+#  },
+#  "validation": {
+#    "status": true
+#  }
+#}
+class Get_custom_model_text_file(BaseModel):
+    text: BasicFileResult # uses sub type 'BasicFileResult'
+    validation: Status
 
 class Health(BaseModel):
     status: str

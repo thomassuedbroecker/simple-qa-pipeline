@@ -21,7 +21,22 @@ def load_ibmcloud_env():
        
        return configurationJSON, configurationStatus
 
+def load_custom_model_env():
+    if (os.environ.get("CUSTOM_MODEL_PROMPT") == None):
+            CUSTOM_MODEL_PROMPT = ''
+    else:
+            CUSTOM_MODEL_PROMPT = os.environ.get("CUSTOM_MODEL_PROMPT")
+    
+    if (CUSTOM_MODEL_PROMPT==''):
+            configurationStatus = False
+    else:
+            configurationStatus = True
+    
+    configurationJSON = { "CUSTOM_MODEL_PROMPT": CUSTOM_MODEL_PROMPT
+                        }
 
+    return configurationJSON, configurationStatus
+    
 def load_watson_x_env():
     if (os.environ.get("WATSONX_URL") == None):
             WATSONX_URL = ''
@@ -111,8 +126,7 @@ def load_watsonx_deployment_env():
                             }
 
         return configurationJSON, configurationStatus
-       
-       
+             
 def load_watson_discovery_env():
     if (os.environ.get("DISCOVERY_API_KEY") == None):
             DISCOVERY_API_KEY = ''

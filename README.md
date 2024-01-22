@@ -42,6 +42,14 @@ python3 -m pip install --upgrade pip
 python3 -m pip install "fastapi[all]"
 python3 -m pip install requests
 python3 -m pip install pydantic
+python3 -m pip install touch
+#python3 -m pip install pytorch #Only with GPU
+python3 -m pip install torch torchvision
+python3 -m pip install accelerate
+python3 -m pip install auto-gptq
+python3 -m pip install typing
+python3 -m pip install transformers
+python3 -m pip install git+https://github.com/huggingface/transformers
 python3 -m pip freeze > requirements.txt 
 ```
 
@@ -75,6 +83,12 @@ export WATSONX_MAX_NEW_TOKENS=300
 export WATSONX_PROMPT="Document:\n\n<<CONTEXT>>\n\nQuestion:\n\n<<QUESTION>>\n\nAnswer:\n\n"
 export WATSONX_PROJECT_ID=
 export WATSONX_VERSION="2023-05-29"
+# Watsonx deployment (Watson Studio Deployment)
+export WATSONX_DEPLOYMENT_ID=
+export WATSONX_DEPLOYMENT_URL=https://[XXX]${WATSONX_DEPLOYMENT_ID}[YYY]
+export WATSONX_DEPLOYMENT_VERSION=2021-05-01
+# Custom Model
+export CUSTOM_MODEL_PROMPT="Code:\n\n<<CONTEXT>>\n\nQuestion:\n\n<<QUESTION>>\n\nAnswer:\n\n"
 # IBM Cloud
 export IBMCLOUD_APIKEY=
 # APP
