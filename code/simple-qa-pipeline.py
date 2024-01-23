@@ -145,8 +145,11 @@ async def get_custom_model_file_with_prompt(  file: Annotated[UploadFile, File(d
                                               question: Annotated[str, Form()],
                                               modelname_or_modelpath: Annotated[str, Form()]) -> Any:
     """
-    This endpoint sends a prompt a custom model. This prompt is configured by the environment variable `CUSTOM_MODEL_PROMPT` by using the variables `<<CONTEXT>>` and `<<QUESTION>>`.
+    This endpoint sends a prompt to a custom model. This prompt is configured by the environment variable `CUSTOM_MODEL_PROMPT` by using the variables `<<CONTEXT>>` and `<<QUESTION>>`.
     The context in the unformated content of the uploaded file.
+    - file: With context information
+    - question: Question to ask
+    - modelname_or_modelpath: Model to use
     Only works on GPU!
     """  
     context =  await file.read()
