@@ -31,8 +31,8 @@ git clone https://github.com/thomassuedbroecker/simple-pipeline.git
 
 ```sh
 cd simple-pipeline/code
-python3.11 -m venv simple-pipeline-env-3.11
-source ./simple-pipeline-env-3.11/bin/activate
+python3 -m venv simple-pipeline-env-3
+source ./simple-pipeline-env-3/bin/activate
 ```
 
 * Install needed Python libs and create a `requirements.txt` file
@@ -42,19 +42,24 @@ python3 -m pip install --upgrade pip
 python3 -m pip install "fastapi[all]"
 python3 -m pip install requests
 python3 -m pip install pydantic
-python3 -m pip install touch
-#python3 -m pip install pytorch #Only with GPU
-python3 -m pip install torch torchvision
+python3 -m pip install torch
 python3 -m pip install accelerate
-python3 -m pip install auto-gptq
 python3 -m pip install typing
 python3 -m pip install transformers
-python3 -m pip install git+https://github.com/huggingface/transformers
-python3 -m pip freeze > requirements.txt 
+#python3 -m pip install git+https://github.com/huggingface/transformers
 ```
+
+* Save your configuration in requirements.txt
 
 ```sh
 python3 -m pip install --upgrade pip
+python3 -m pip freeze > requirements.txt
+deactivate
+```
+
+* Install from configuration from requirements.txt
+
+```sh
 python3 -m pip install -r requirements.txt
 ```
 
@@ -94,14 +99,15 @@ export IBMCLOUD_APIKEY=
 # APP
 export APP_USER=admin
 export APP_APIKEY=admin
+export APPLOG=INFO
 ```
 
 ### 3.3 Run `simple-qa-pipeline` server
 
 ```sh
 cd code
-source ./simple-pipeline-env-3.11/bin/activate
-source .env
+source ./simple-pipeline-env-3/bin/activate
+source ./.env
 python3 simple-qa-pipeline.py
 ```
 

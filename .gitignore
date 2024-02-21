@@ -168,9 +168,11 @@ configmap_values.txt
 
 # additional
 simple-pipeline-env-3.11
+simple-pipeline-env-3
 .env
 .DS_Store
 documentation/~$live-stream.pptx
 .vscode/launch.json
 additional_notes.md
 assistant/additional_information/
+code/.env_backup

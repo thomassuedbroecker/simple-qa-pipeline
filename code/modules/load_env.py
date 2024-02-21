@@ -1,4 +1,24 @@
 import os
+import logging
+import sys
+
+##################################
+# Configure Logging
+# load config 
+if (os.environ.get("APP_LOG") == None):
+        APPLOG = "INFO"
+else:
+        APPLOG = os.environ.get("APP_LOG")
+
+# set logging
+if (str(APPLOG)=="DEBUG"):
+     logging.basicConfig(stream=sys.stdout,level=logging.DEBUG)
+elif (str(APPLOG)=="INFO"):
+     logging.basicConfig(stream=sys.stdout,level=logging.INFO)
+elif (str(APPLOG)=="WARNING"):
+     logging.basicConfig(stream=sys.stdout,level=logging.WARNING)
+else:
+     logging.basicConfig(stream=sys.stdout,level=logging.INFO)
 
 def load_ibmcloud_env():
        if (os.environ.get("IBMCLOUD_APIKEY") == None):
@@ -181,6 +201,11 @@ def load_apikey_env():
             APIKEY = "apikey"
     else:
             APIKEY = os.environ.get("APP_APIKEY")
+
+    if (os.environ.get("APPLOG") == None):
+            APPLOG = "INFO"
+    else:
+            APPLOG = os.environ.get("APPLOG")
     
     if ((USER=="admin") or 
         (APIKEY=="apikey")):
@@ -189,7 +214,8 @@ def load_apikey_env():
             authenicationStatus = True
     
     authenicationJSON = { "USER": USER,
-                          "APIKEY":APIKEY
+                          "APIKEY":APIKEY,
+                          "APPLOG":APPLOG
                         }
     print(authenicationJSON)
 

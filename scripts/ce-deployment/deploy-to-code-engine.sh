@@ -15,6 +15,9 @@ export REUSE_REPO_URL=${3:-"no_repo_url_id"}
 export REUSE_REPO_ENV_NAME=${4:-"no_env_file_name"}
 export REUSE="false"
 
+#export ENGINE=docker
+export ENGINE=podman
+
 # Optional to change
 export CODEENGINE_CR_ACCESS_NAME=$CR
 export CODEENGINE_CR_SERVER_NAME=$CR
@@ -36,11 +39,11 @@ export FOLDERNAME=""
 # **********************************************************************************
 
 function check_docker () {
-    ERROR=$(docker ps 2>&1)
+    ERROR=$(${ENGINE} ps 2>&1)
     RESULT=$(echo $ERROR | grep 'Cannot' | awk '{print $1;}')
     VERIFY="Cannot"
     if [ "$RESULT" == "$VERIFY" ]; then
-        echo "Docker is not running. Stop script execution."
+        echo "${ENGINE} is not running. Stop script execution."
         exit 1 
     fi
 }
@@ -96,7 +99,7 @@ function build_and_push_container () {
     # 3. Build container image
     echo "****** BUILD *********"
     cd "$HOME_PATH"/../../code
-    docker build -f "$HOME_PATH"/../../code/docker/"$QA_DOCKERFILE_NAME" -t "$CODEENGINE_APP_IMAGE_URL" .
+    ${ENGINE} build -f "$HOME_PATH"/../../code/docker/"$QA_DOCKERFILE_NAME" -t "$CODEENGINE_APP_IMAGE_URL" .
     cd "$HOME_PATH"
     
     # 4. Login to  IBM Cloud Container Registry
@@ -122,8 +125,8 @@ function build_and_push_container () {
     # 8. Create new container image if it doesn't exists
     CURR_CONTAINER_IMAGE=$(ibmcloud cr image-list | grep $CI_TAG | awk '{print $2;}')
     if [ "$CI_TAG" != "$CURR_CONTAINER_IMAGE" ]; then
-        docker login -u iamapikey -p $IBM_CLOUD_API_KEY $CR_REGION 
-        docker push "$CODEENGINE_APP_IMAGE_URL"
+        ${ENGINE} login -u iamapikey -p $IBM_CLOUD_API_KEY $CR_REGION 
+        ${ENGINE} push "$CODEENGINE_APP_IMAGE_URL"
     else
         echo "Container exists: ($CODEENGINE_APP_IMAGE_URL)"
     fi
@@ -334,7 +337,7 @@ function build_and_push_container_reuse () {
 
     # Build from restore code
     cd "$TEMP_REUSE_FOLDER"/simple-qa-pipeline/code
-    docker build -f "$TEMP_REUSE_FOLDER"/simple-qa-pipeline/code/docker/"$QA_DOCKERFILE_NAME" -t "$CODEENGINE_APP_IMAGE_URL" .
+    ${ENGINE} build -f "$TEMP_REUSE_FOLDER"/simple-qa-pipeline/code/docker/"$QA_DOCKERFILE_NAME" -t "$CODEENGINE_APP_IMAGE_URL" .
     
     cd "$HOME_PATH"
     
@@ -360,8 +363,8 @@ function build_and_push_container_reuse () {
     # Create new container image if it doesn't exists
     CURR_CONTAINER_IMAGE=$(ibmcloud cr image-list | grep $CI_TAG | awk '{print $2;}')
     if [ "$CI_TAG" != "$CURR_CONTAINER_IMAGE" ]; then
-        docker login -u iamapikey -p $IBM_CLOUD_API_KEY $CR_REGION 
-        docker push "$CODEENGINE_APP_IMAGE_URL"
+        ${ENGINE} login -u iamapikey -p $IBM_CLOUD_API_KEY $CR_REGION 
+        ${ENGINE} push "$CODEENGINE_APP_IMAGE_URL"
     else
         echo "Container exists: ($CODEENGINE_APP_IMAGE_URL)"
     fi

@@ -6,11 +6,14 @@ FROM python:3.11.2-slim-buster as BUILDER_IMAGE
 WORKDIR /app
 
 # Install needed environment
-RUN python -m pip install --upgrade pip
-RUN python -m pip install requests
-RUN python -m pip install "fastapi[all]"
-RUN python -m pip install pydantic
-
+RUN apt-get -y update; apt-get -y install curl
+RUN python3 -m pip install --upgrade pip
+RUN python3 -m pip install "fastapi[all]"
+RUN python3 -m pip install requests
+RUN python3 -m pip install pydantic
+RUN python3 -m pip install torch
+RUN python3 -m pip install accelerate
+RUN python3 -m pip install transformers
 
 # Create modeles folder
 RUN mkdir modules

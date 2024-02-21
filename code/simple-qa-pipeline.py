@@ -3,6 +3,9 @@ from fastapi import Depends, HTTPException, FastAPI, File, UploadFile, Form
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from starlette.status import HTTP_401_UNAUTHORIZED
 from fastapi.openapi.utils import get_openapi
+import logging
+import sys
+
 ##################################
 # Custom modules
 from modules.load_env import load_watson_discovery_env, load_apikey_env, load_watson_x_env
@@ -13,6 +16,18 @@ from modules.apis_payload import Watsonx_simple_question, Discovery_question, Pi
 from modules.apis_response_format import Get_access_token, Get_discovery_config,Get_ibmcloud_config, Get_pipeline_answer, Get_simple_answer, Run_discovery_query, Health, Get_custom_model_text_file
 from modules.requests_watsonx_deployments import get_answer_from_watsonx_deployment
 from modules.requests_local_custom_model import custom_model_simple_prompt
+
+##################################
+# Configure Logging
+log_config, log_validation = load_apikey_env()
+if (str(log_config["APPLOG"])=="DEBUG"):
+     logging.basicConfig(stream=sys.stdout,level=logging.DEBUG)
+elif (str(log_config["APPLOG"])=="INFO"):
+     logging.basicConfig(stream=sys.stdout,level=logging.INFO)
+elif (str(log_config["APPLOG"])=="WARNING"):
+     logging.basicConfig(stream=sys.stdout,level=logging.WARNING)
+else:
+     logging.basicConfig(stream=sys.stdout,level=logging.INFO)
 
 ##################################
 # Set basic auth as security
