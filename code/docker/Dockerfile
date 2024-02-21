@@ -30,6 +30,7 @@ COPY /../modules/load_env.py /app/modules
 COPY /../modules/requests_discovery.py /app/modules
 COPY /../modules/requests_ibmcloud_token.py /app/modules
 COPY /../modules/requests_watsonx.py /app/modules
+COPY /../modules/requests_local_custom_model /app/modules
 COPY /../modules/requests_watsonx_deployments.py /app/modules
 COPY /../docker/docker_entrypoint.sh /app
 COPY /../docker/generate_env-config.sh /app
