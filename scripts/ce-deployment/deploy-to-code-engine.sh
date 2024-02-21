@@ -103,7 +103,7 @@ function build_and_push_container () {
     cd "$HOME_PATH"
     
     # 4. Login to  IBM Cloud Container Registry
-    ibmcloud cr login
+    ibmcloud cr login --client "${ENGINE}"
 
     # 5. In case the IBM Cloud resource group for the IBM Container Registry is different, the automation changes the IBM Cloud target for the resource group.
     ERROR=$(ibmcloud target -g $CR_RESOURCE_GROUP 2>&1)
